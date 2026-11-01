@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ekaterina Lipina — Presenter &amp; Show Host</title>
+<link rel="stylesheet" href="assets/css/fonts.css">
+<style>
+/* ============================================================
+   DESIGN TOKENS
+   ============================================================ */
+:root{
+  --ink:#0A0A0C;
+  --ink-2:#111114;
+  --ink-3:#18181C;
+  --paper:#F2EFE9;
+  --paper-2:#E7E2D9;
+  --white:#FFFFFF;
+
+  --burgundy-deep:#3A0105;   /* sampled from backdrop */
+  --burgundy:#6E0F1C;
+  --burgundy-bright:#A8203A;
+  --accent-text:#C85169;   /* legible burgundy for TEXT on dark */
+  --burgundy-wine:#4A0A13;
+
+  --grey-900:#1B1B1F;
+  --grey-700:#3C3C43;
+  --grey-500:#72727A;
+  --grey-300:#A9A9B1;
+  --grey-100:#DADADE;
+
+  --line-dark:rgba(255,255,255,.13);
+  --line-light:rgba(10,10,12,.14);
+
+  --f-display:'Playfair Display','Times New Roman',serif;
+  --f-masthead:'Prata','Playfair Display',serif;
+  --f-body:'Golos Text','Helvetica Neue',sans-serif;
+  --f-mono:'JetBrains Mono',Consolas,monospace;
+
+  --pad:clamp(20px,4.2vw,64px);
+  --gutter:clamp(14px,1.6vw,26px);
+  --maxw:1680px;
+  --rule:1px;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  background:var(--ink);color:var(--white);
+  font-family:var(--f-body);font-size:16px;line-height:1.65;
+  font-weight:400;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--burgundy-bright);color:#fff}
+
+/* film grain — editorial texture */
+.grain{position:relative}
+.grain::after{
+  content:"";position:absolute;inset:0;pointer-events:none;z-index:3;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity:.045;mix-blend-mode:overlay;
+}
+
+/* ============================================================
+   PRIMITIVES
+   ============================================================ */
+.wrap{max-width:var(--maxw);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+.grid12{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--gutter)}
+
+.label{
+  font-family:var(--f-mono);font-size:10.5px;font-weight:400;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--grey-300);
+}
+.label--accent{color:var(--accent-text)}
+.rule{height:var(--rule);background:var(--line-dark);width:100%}
+.rule--accent{background:var(--burgundy-bright);height:2px}
+.rule--light{background:var(--line-light)}
+
+h1,h2,h3,h4{font-family:var(--f-display);font-weight:400;line-height:.95;letter-spacing:-.015em}
+.h-display{font-size:clamp(3.4rem,9.2vw,10rem);line-height:.86}
+.h-1{font-size:clamp(2.6rem,5.4vw,4.9rem);line-height:.94}
+.h-2{font-size:clamp(1.9rem,3.5vw,3.1rem);line-height:1}
+.h-3{font-size:clamp(1.4rem,2vw,1.95rem);line-height:1.1}
+.italic{font-style:italic}
+.masthead{font-family:var(--f-masthead);font-weight:400}
+.lede{font-size:clamp(1rem,1.25vw,1.16rem);line-height:1.6;color:var(--grey-300);max-width:46ch}
+.body-p{font-size:15.5px;line-height:1.72;color:var(--grey-300);max-width:56ch}
+.body-p strong{color:var(--white);font-weight:500}
+
+.kicker{display:flex;align-items:center;gap:14px;margin-bottom:26px}
+.kicker::before{content:"";width:42px;height:2px;background:var(--burgundy-bright);flex:none}
+.kicker .label{color:var(--white)}
+
+.pill{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--f-mono);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--accent-text);border:1px solid rgba(200,81,105,.45);
+  padding:5px 11px;border-radius:999px;background:rgba(168,32,58,.08);
+}
+
+/* buttons */
+.btn{
+  display:inline-flex;align-items:center;gap:12px;
+  font-family:var(--f-mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  padding:15px 26px;border:1px solid var(--line-dark);background:transparent;color:var(--white);
+  cursor:pointer;transition:background .35s cubic-bezier(.2,.7,.2,1),border-color .35s,color .35s;
+}
+.btn:hover{background:var(--white);color:var(--ink);border-color:var(--white)}
+.btn--primary{background:var(--burgundy);border-color:var(--burgundy);color:#fff}
+.btn--primary:hover{background:var(--burgundy-bright);border-color:var(--burgundy-bright);color:#fff}
+.btn .arw{transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.btn:hover .arw{transform:translateX(5px)}
+
+.link-u{position:relative;display:inline-block;padding-bottom:2px}
+.link-u::after{content:"";position:absolute;left:0;bottom:0;height:1px;width:100%;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .45s cubic-bezier(.2,.7,.2,1)}
+.link-u:hover::after{transform:scaleX(1);transform-origin:left}
+
+/* ============================================================
+   DOC CHROME — side rail + progress
+   ============================================================ */
+.rail{
+  position:fixed;left:26px;top:50%;transform:translateY(-50%);z-index:40;
+  display:flex;flex-direction:column;gap:14px;
+}
+.rail a{width:5px;height:5px;border-radius:50%;background:var(--grey-700);transition:all .35s}
+.rail a.on{background:var(--burgundy-bright);transform:scale(1.7)}
+.rail a:hover{background:var(--grey-300)}
+
+.docbar{
+  position:fixed;top:0;left:0;right:0;z-index:50;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px var(--pad);
+  background:rgba(10,10,12,.78);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line-dark);
+}
+.docbar .mark{font-family:var(--f-display);font-size:15px;letter-spacing:.04em;white-space:nowrap;min-width:0}
+.docbar .mid{font-family:var(--f-mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--grey-500)}
+.docbar .rgt{display:flex;align-items:center;gap:20px;flex:none}
+.lang{display:flex;align-items:center;gap:7px;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.14em}
+.lang button{
+  background:none;border:0;color:var(--grey-500);cursor:pointer;font-family:inherit;font-size:inherit;
+  letter-spacing:inherit;padding:2px 0;transition:color .3s;
+}
+.lang button.on{color:var(--accent-text)}
+.lang button:hover{color:var(--white)}
+.lang .sep{color:var(--grey-700)}
+
+.progress{position:fixed;top:0;left:0;height:2px;background:var(--burgundy-bright);z-index:60;width:0}
+
+/* ============================================================
+   COVER
+   ============================================================ */
+.cover{
+  min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;
+  justify-content:space-between;position:relative;overflow:hidden;
+  background:var(--ink);padding-top:64px;
+}
+.cover__img{
+  position:absolute;inset:0 0 0 46%;z-index:0;overflow:hidden;
+}
+.cover__img img{width:100%;height:100%;object-fit:cover;object-position:50% 28%;filter:contrast(1.06)}
+.cover__img::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(90deg,var(--ink) 0%,rgba(10,10,12,.95) 26%,rgba(10,10,12,.5) 46%,rgba(58,1,5,.16) 100%);
+}
+.cover__body{position:relative;z-index:2;flex:1;display:flex;flex-direction:column;justify-content:center;padding-top:6vh;padding-bottom:6vh;min-width:0;width:100%}
+.cover__meta{display:flex;gap:28px;flex-wrap:wrap;align-items:baseline;margin-bottom:clamp(18px,3vh,34px);min-width:0}
+.cover__meta .label{overflow-wrap:anywhere;min-width:0}
+.cover__title{margin-bottom:clamp(20px,3.4vh,40px);min-width:0}
+.cover__title span{display:block}
+.cover__title .accent{color:var(--accent-text);font-style:italic}
+.cover__foot{
+  position:relative;z-index:2;border-top:1px solid var(--line-dark);
+  padding-top:22px;padding-bottom:22px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--gutter);
+  width:100%;
+}
+.cover__foot .cell{display:flex;flex-direction:column;gap:7px;min-width:0}
+.cover__foot .v{font-family:var(--f-display);font-size:15px;overflow-wrap:anywhere}
+
+/* ============================================================
+   SECTION SHELL
+   ============================================================ */
+.sec{padding:clamp(72px,11vh,140px) 0;position:relative}
+.sec--paper{background:var(--paper);color:var(--ink);--accent-text:#6E0F1C}
+.sec--paper .label{color:var(--grey-500)}
+.sec--paper .lede,.sec--paper .body-p{color:var(--grey-700)}
+.sec--paper .body-p strong{color:var(--ink)}
+.sec--paper .rule{background:var(--line-light)}
+.sec--paper .mf{border-color:var(--line-light)}
+.sec--paper .metrics{background:var(--line-light);border-color:var(--line-light)}
+.sec--paper .kicker::before{background:var(--burgundy)}
+.sec--paper .kicker .label{color:var(--ink)}
+
+.sec__head{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--gutter);margin-bottom:clamp(40px,6vh,72px)}
+.sec__head .lead{grid-column:1/7;min-width:0}
+.sec__head .side{grid-column:8/13;display:flex;align-items:flex-end;min-width:0}
+.sec__num{font-family:var(--f-mono);font-size:10px;letter-spacing:.2em;color:var(--accent-text);margin-bottom:18px}
+
+/* ============================================================
+   PRINCIPLES
+   ============================================================ */
+.principles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line-dark);border:1px solid var(--line-dark)}
+.principle{background:var(--ink);padding:clamp(26px,3vw,44px)}
+.principle .n{font-family:var(--f-mono);font-size:10px;letter-spacing:.2em;color:var(--accent-text);margin-bottom:22px;display:block}
+.principle h3{margin-bottom:14px}
+.principle p{font-size:14.5px;line-height:1.7;color:var(--grey-300)}
+
+/* ============================================================
+   PALETTE
+   ============================================================ */
+.swatches{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line-dark);border:1px solid var(--line-dark)}
+.sw{background:var(--paper);padding:0;display:flex;flex-direction:column}
+.sw__chip{height:clamp(90px,11vw,150px);display:flex;align-items:flex-end;justify-content:flex-end;padding:12px;border-bottom:1px solid var(--line-light)}
+.sw__chip .hex{font-family:var(--f-mono);font-size:10px;letter-spacing:.1em;color:rgba(255,255,255,.72);mix-blend-mode:difference}
+.sw__body{padding:16px 18px 20px;display:flex;flex-direction:column;gap:6px}
+.sw__body .nm{font-family:var(--f-display);font-size:17px;color:var(--ink)}
+.sw__body .rl{font-family:var(--f-mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--grey-500)}
+.sw__body .us{font-size:13px;color:var(--grey-700);line-height:1.5;margin-top:4px}
+.sw--light{background:var(--paper)}
+.sw--light .sw__body .rl{color:var(--grey-500)}
+.sw--light .sw__body .us{color:var(--grey-700)}
+
+.usage{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--gutter);margin-top:clamp(36px,5vh,64px)}
+.usage__bar{display:flex;height:34px;border:1px solid var(--line-light);overflow:hidden}
+.usage__bar i{display:block;height:100%;box-shadow:inset -1px 0 0 var(--line-light)}
+.sec--paper .usage__key .k span{color:var(--grey-700)}
+.sec--paper .usage__key .k b{color:var(--ink)}
+.sec--paper .usage__key .dot{border:1px solid var(--line-light)}
+.usage__key{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--gutter);margin-top:16px}
+.usage__key .k{grid-column:span 3;display:flex;gap:10px;align-items:flex-start;min-width:0}
+.usage__key .dot{width:9px;height:9px;flex:none;margin-top:5px}
+.usage__key .k span{font-family:var(--f-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--grey-300);line-height:1.6}
+.usage__key .k b{display:block;color:var(--white);font-weight:400}
+
+/* ============================================================
+   TYPE SPECIMEN
+   ============================================================ */
+.spec{border-top:1px solid var(--line-dark)}
+.spec__row{
+  display:grid;grid-template-columns:220px 1fr;gap:clamp(20px,4vw,64px);
+  padding:clamp(26px,3.4vh,46px) 0;border-bottom:1px solid var(--line-dark);align-items:baseline;
+}
+.spec__meta{display:flex;flex-direction:column;gap:9px}
+.spec__meta .nm{font-family:var(--f-display);font-size:15px;color:var(--white)}
+.spec__meta .det{font-family:var(--f-mono);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--grey-500);line-height:1.7}
+.spec__sample{min-width:0}
+.spec__sample .ru{font-size:.78em;color:var(--grey-500);margin-top:10px}
+
+/* ============================================================
+   GRID DIAGRAM
+   ============================================================ */
+.gridviz{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--gutter);margin-bottom:34px}
+.gridviz div{background:linear-gradient(180deg,rgba(168,32,58,.34),rgba(168,32,58,.08));border:1px solid rgba(168,32,58,.3);height:88px}
+.gm{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--gutter);margin-top:8px}
+.gm span{font-family:var(--f-mono);font-size:10px;color:var(--grey-500);text-align:center}
+.gm span.hi{color:var(--accent-text)}
+
+.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line-dark);border:1px solid var(--line-dark);margin-top:clamp(32px,5vh,56px)}
+.metric{background:var(--ink);padding:22px 20px;color:var(--white)}
+.metric .v{font-family:var(--f-display);font-size:clamp(1.4rem,2.4vw,2.1rem);margin-bottom:8px;color:var(--white)}
+.metric .k{font-family:var(--f-mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--grey-500);line-height:1.6}
+
+/* ============================================================
+   LIVE MOCKUPS
+   ============================================================ */
+.mock{border:1px solid var(--line-dark);overflow:hidden;background:var(--ink)}
+.mock__bar{
+  display:flex;align-items:center;justify-content:space-between;gap:20px;
+  padding:13px var(--pad);border-bottom:1px solid var(--line-dark);background:var(--ink-2);
+  flex-wrap:wrap;
+}
+.mock__nav{display:flex;gap:clamp(14px,2vw,34px);min-width:0;flex-wrap:wrap}
+.mock__nav a{font-family:var(--f-mono);font-size:10px;letter-spacing:.17em;text-transform:uppercase;color:var(--grey-300);transition:color .3s}
+.mock__nav a:hover{color:var(--accent-text)}
+.mock__nav a.on{color:var(--white)}
+.mock__logo{font-family:var(--f-display);font-size:14px;letter-spacing:.03em;white-space:nowrap}
+.mock__right{display:flex;align-items:center;gap:18px}
+
+.hero{
+  position:relative;min-height:clamp(560px,82vh,860px);
+  display:grid;grid-template-columns:1fr;overflow:hidden;
+}
+.hero__bg{position:absolute;inset:0;z-index:0;overflow:hidden}
+.hero__bg img{width:100%;height:100%;object-fit:cover;object-position:68% 24%;transform:scale(1.04)}
+.hero__bg::after{
+  content:"";position:absolute;inset:0;
+  background:
+    linear-gradient(90deg,var(--ink) 0%,rgba(10,10,12,.92) 32%,rgba(10,10,12,.36) 56%,rgba(58,1,5,.18) 100%),
+    linear-gradient(0deg,rgba(10,10,12,.88) 0%,transparent 44%);
+}
+.hero__in{position:relative;z-index:2;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--gutter);align-content:center;padding:clamp(48px,9vh,110px) var(--pad)}
+.hero__copy{grid-column:1/9;max-width:900px;min-width:0}
+.hero__eyebrow{display:flex;align-items:center;gap:16px;margin-bottom:clamp(16px,3vh,30px)}
+.hero__eyebrow .dot{width:6px;height:6px;background:var(--burgundy-bright);border-radius:50%}
+.hero__title{font-size:clamp(3rem,9.6vw,9.6rem);line-height:.85;margin-bottom:clamp(22px,3.6vh,40px);overflow-wrap:break-word}
+.hero__title .ln{display:block}
+.hero__title .ac,.hero__title .accent{color:var(--accent-text);font-style:italic;padding-left:.06em}
+.hero__row{display:flex;gap:clamp(18px,3vw,44px);align-items:flex-end;flex-wrap:wrap}
+.hero__row .body-p{max-width:40ch}
+.hero__cta{display:flex;gap:14px;flex-wrap:wrap}
+.hero__folio{
+  position:absolute;right:var(--pad);bottom:clamp(22px,4vh,44px);z-index:2;
+  display:flex;flex-direction:column;align-items:flex-end;gap:9px;text-align:right;
+}
+
+/* work grid */
+.works{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:clamp(26px,4vw,58px) var(--gutter);padding:clamp(34px,6vh,72px) var(--pad)}
+.work{position:relative}
+.work--a{grid-column:1/7}
+.work--b{grid-column:9/13;margin-top:clamp(30px,7vw,110px)}
+.work--c{grid-column:3/9;margin-top:clamp(-10px,1vw,20px)}
+.work--d{grid-column:10/13;margin-top:clamp(20px,5vw,80px)}
+.work__frame{position:relative;overflow:hidden;background:var(--ink-3)}
+.work__frame img{width:100%;height:100%;object-fit:cover;transition:transform 1.1s cubic-bezier(.2,.7,.2,1),filter .6s}
+.work:hover .work__frame img{transform:scale(1.035)}
+.work__tag{
+  position:absolute;top:12px;left:12px;z-index:2;
+  background:rgba(10,10,12,.72);backdrop-filter:blur(6px);
+  font-family:var(--f-mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;
+  padding:5px 10px;color:#fff;
+}
+.work__body{display:flex;justify-content:space-between;gap:16px;align-items:baseline;margin-top:14px;padding-top:12px;border-top:1px solid var(--line-dark);min-width:0}
+.work__body .t{font-family:var(--f-display);font-size:clamp(1.05rem,1.5vw,1.4rem);min-width:0;overflow-wrap:anywhere}
+.work__body .m{font-family:var(--f-mono);font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--grey-500);white-space:nowrap}
+
+/* about */
+.about{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--gutter);align-items:center;padding:clamp(34px,6vh,72px) var(--pad)}
+.about__art{grid-column:1/6;position:relative}
+.about__art .bg{position:absolute;inset:0;background:var(--burgundy-deep)}
+.about__art img{position:relative;width:100%;mix-blend-mode:normal}
+.about__copy{grid-column:7/13;padding-right:clamp(0px,2vw,30px);min-width:0}
+.about__copy h2{margin-bottom:22px}
+.about__copy p{margin-bottom:18px}
+.about__stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--line-dark);border:1px solid var(--line-dark);margin-top:34px}
+.about__stats div{background:var(--burgundy-deep);padding:16px 18px}
+.about__stats .k{font-family:var(--f-mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.5)}
+.about__stats .v{font-family:var(--f-display);font-size:19px;margin-top:5px}
+
+/* bookings */
+.book{position:relative;padding:clamp(48px,9vh,120px) var(--pad);overflow:hidden}
+.book__grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--gutter);align-items:center;position:relative;z-index:2}
+.book__copy{grid-column:1/8;min-width:0}
+.book__art{grid-column:9/13;justify-self:end;width:100%;max-width:420px;position:relative}
+.book__art::before{content:"";position:absolute;inset:-24px -24px -24px 24px;background:var(--burgundy-deep);z-index:-1}
+.book__art img{width:100%}
+.book__title{font-size:clamp(2.6rem,6.4vw,6rem);line-height:.9;margin-bottom:28px}
+.book__title .ac{color:var(--accent-text);font-style:italic}
+.book__list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--line-dark);border:1px solid var(--line-dark);margin-top:36px;max-width:640px}
+.book__list div{background:var(--ink);padding:18px 20px}
+.book__list .k{font-family:var(--f-mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--grey-500)}
+.book__list .v{font-size:14.5px;margin-top:6px;color:var(--white);overflow-wrap:anywhere}
+.book__list .v a:hover{color:var(--accent-text)}
+
+/* pull quote */
+.quote{padding:clamp(60px,11vh,140px) 0;text-align:center}
+.quote blockquote{
+  font-family:var(--f-display);font-style:italic;font-weight:400;
+  font-size:clamp(1.7rem,4.2vw,3.9rem);line-height:1.14;letter-spacing:-.01em;
+  max-width:20ch;margin:0 auto;
+}
+.quote .by{margin-top:30px;display:flex;justify-content:center;gap:14px;align-items:center}
+.quote .by::before,.quote .by::after{content:"";width:32px;height:1px;background:var(--burgundy-bright)}
+
+/* ============================================================
+   COMPONENTS
+   ============================================================ */
+.comps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--line-dark);border:1px solid var(--line-dark)}
+.comp{background:var(--ink);padding:clamp(24px,3vw,40px)}
+.comp__lbl{font-family:var(--f-mono);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--grey-500);margin-bottom:24px}
+.comp__row{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.comp__row + .comp__lbl{margin-top:34px}
+
+.folio-row{display:flex;flex-direction:column;gap:14px}
+.folio{display:flex;align-items:baseline;gap:16px;border-bottom:1px solid var(--line-dark);padding-bottom:13px}
+.folio .n{font-family:var(--f-mono);font-size:10px;letter-spacing:.18em;color:var(--accent-text);width:52px;flex:none}
+.folio .t{font-family:var(--f-display);font-size:19px;flex:1}
+.folio .m{font-family:var(--f-mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--grey-500)}
+
+.tog{display:inline-flex;border:1px solid var(--line-dark);padding:3px}
+.tog button{
+  background:none;border:0;color:var(--grey-500);cursor:pointer;
+  font-family:var(--f-mono);font-size:10px;letter-spacing:.15em;padding:8px 15px;transition:all .3s;
+}
+.tog button.on{background:var(--burgundy);color:#fff}
+
+/* motion frames */
+.motion{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--gutter)}
+.mf{border:1px solid var(--line-dark);background:var(--ink-2);position:relative;overflow:hidden;aspect-ratio:4/3}
+.mf img{width:100%;height:100%;object-fit:cover}
+.mf .cap{
+  position:absolute;left:0;right:0;bottom:0;padding:12px 14px;
+  background:linear-gradient(0deg,rgba(10,10,12,.92),transparent);
+  font-family:var(--f-mono);font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--grey-300);
+}
+.mf1 img{transform:scale(1.14);opacity:.35}
+.mf2 img{transform:scale(1.07);opacity:.7}
+.mf3 img{transform:scale(1.0);opacity:1}
+.mf3::after{content:"";position:absolute;inset:0;border:1px solid var(--burgundy-bright)}
+
+/* note */
+.note{
+  border-left:2px solid var(--burgundy-bright);padding:4px 0 4px 20px;
+  font-size:14px;line-height:1.65;color:var(--grey-300);max-width:62ch;
+}
+.note b{color:var(--white);font-weight:500}
+
+/* footer */
+.foot{border-top:1px solid var(--line-dark);padding:clamp(48px,7vh,84px) 0}
+.foot__grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--gutter)}
+.foot__brand{grid-column:1/5;min-width:0}
+.foot__brand .nm{font-family:var(--f-display);font-size:clamp(1.6rem,3vw,2.6rem);line-height:1;margin-bottom:14px}
+.foot__col{grid-column:span 2;min-width:0}
+.foot__col .k{font-family:var(--f-mono);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--grey-500);margin-bottom:14px}
+.foot__col a{display:block;font-size:14px;color:var(--grey-300);padding:4px 0;transition:color .3s;overflow-wrap:anywhere}
+.foot__col a:hover{color:var(--accent-text)}
+.foot__bottom{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-top:clamp(40px,6vh,70px);padding-top:22px;border-top:1px solid var(--line-dark)}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width:1100px){
+  .rail{display:none}
+  .sec__head .lead{grid-column:1/13}
+  .sec__head .side{grid-column:1/13;margin-top:22px}
+  .about__art{grid-column:1/7}
+  .about__copy{grid-column:1/13;margin-top:38px;padding-right:0}
+  .book__copy{grid-column:1/13}
+  .book__art{grid-column:1/13;justify-self:start;max-width:340px;margin-top:46px}
+  .swatches{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .principles{grid-template-columns:1fr}
+  .comps{grid-template-columns:1fr}
+  .metrics{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .hero__copy{grid-column:1/13}
+  .work--a{grid-column:1/9}
+  .work--b{grid-column:9/13}
+  .work--c{grid-column:1/9}
+  .work--d{grid-column:9/13}
+  .usage__key .k{grid-column:span 6}
+}
+@media (max-width:760px){
+  :root{--pad:20px}
+  .cover{justify-content:flex-start}
+  .cover__img{inset:0;opacity:.6}
+  .cover__img img{object-position:50% 34%}
+  .cover__img::after{background:linear-gradient(180deg,var(--ink) 0%,rgba(10,10,12,.92) 30%,rgba(10,10,12,.5) 56%,rgba(58,1,5,.4) 100%)}
+  .cover__body{flex:0 0 auto;padding-top:6vh;padding-bottom:0;justify-content:flex-start}
+  .cover__title{font-size:clamp(3rem,15vw,4.6rem)}
+  .cover__foot{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+  .cover__foot .cell:nth-child(n+3){margin-top:8px}
+  .spec__row{grid-template-columns:1fr;gap:20px}
+  .swatches{grid-template-columns:1fr}
+  .usage__key .k{grid-column:span 12}
+  .metrics{grid-template-columns:1fr}
+  .motion{grid-template-columns:1fr}
+  .works{grid-template-columns:1fr}
+  .work--a,.work--b,.work--c,.work--d{grid-column:1/13;margin-top:0}
+  .about{grid-template-columns:1fr}
+  .about__art{grid-column:1/13;max-width:380px}
+  .about__copy{grid-column:1/13}
+  .about__stats{grid-template-columns:1fr}
+  .book__list{grid-template-columns:1fr}
+  .foot__brand{grid-column:1/13}
+  .foot__col{grid-column:span 6;margin-top:24px}
+  .docbar .mid{display:none}
+  .hero__folio{display:none}
+  .mock__bar{padding:12px 20px;gap:12px}
+  .mock__nav{gap:14px;order:3;width:100%;justify-content:space-between}
+  .mock__nav a{font-size:9px}
+  .hero__bg img{object-position:60% 18%}
+  .hero__bg::after{background:linear-gradient(180deg,var(--ink) 0%,rgba(10,10,12,.86) 34%,rgba(10,10,12,.5) 66%,rgba(58,1,5,.42) 100%)}
+  .hero__in{padding:44px var(--pad) 60px}
+  .hero__title{font-size:clamp(2.9rem,14vw,4.2rem)}
+  .about__art img{width:78%;margin:0 auto}
+}
+</style>
+</head>
+<body>
+
+<div class="progress" id="prog"></div>
+
+<header class="docbar">
+  <div class="mark" data-en="Ekaterina Lipina" data-ru="Екатерина Липина">Ekaterina Lipina</div>
+  <div class="mid" data-en="Design Direction № 01 — Presenter Portfolio" data-ru="Дизайн-направление № 01 — Портфолио ведущей">Design Direction № 01 — Presenter Portfolio</div>
+  <div class="rgt">
+    <div class="lang">
+      <button class="on" data-lang="en">EN</button><span class="sep">/</span><button data-lang="ru">RU</button>
+    </div>
+  </div>
+</header>
+
+<nav class="rail" id="rail">
+  <a href="#cover" class="on"></a>
+  <a href="#concept"></a>
+  <a href="#palette"></a>
+  <a href="#type"></a>
+  <a href="#grid"></a>
+  <a href="#mockups"></a>
+  <a href="#components"></a>
+  <a href="#motion"></a>
+</nav>
+
+<!-- ══════════════════════════ COVER ══════════════════════════ -->
+<section class="cover grain" id="cover">
+  <div class="cover__img">
+    <img src="assets/img/stand-burgundy-mono-1600.webp" alt="Ekaterina Lipina, studio portrait">
+  </div>
+  <div class="wrap cover__body">
+    <div class="cover__meta">
+      <span class="label label--accent">Design Direction</span>
+      <span class="label">№ 01 — 2026</span>
+      <span class="label" data-en="Presenter · Paris / Moscow" data-ru="Ведущая · Париж / Москва">Presenter · Paris / Moscow</span>
+    </div>
+    <h1 class="h-display cover__title">
+      <span data-en="Ekaterina" data-ru="Екатерина">Ekaterina</span>
+      <span class="masthead accent" data-en="Lipina" data-ru="Липина">Lipina</span>
+    </h1>
+    <p class="lede" style="max-width:40ch">
+      <span data-en="A portfolio built like a magazine: Didone mastheads, monochrome photography, and a single burgundy thread running through every spread."
+            data-ru="Портфолио, собранное как журнал: дидоновские заставки, монохромная фотография и единственная бургундная нить, проходящая через каждый разворот.">A portfolio built like a magazine: Didone mastheads, monochrome photography, and a single burgundy thread running through every spread.</span>
+    </p>
+  </div>
+  <div class="wrap cover__foot">
+    <div class="cell"><span class="label">Type</span><span class="v">Playfair Display / Prata</span></div>
+    <div class="cell"><span class="label">Palette</span><span class="v">Ink · Paper · Burgundy</span></div>
+    <div class="cell"><span class="label">Grid</span><span class="v">12 columns / asymmetric</span></div>
+    <div class="cell"><span class="label">Languages</span><span class="v">English · Русский</span></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════ CONCEPT ══════════════════════════ -->
+<section class="sec" id="concept">
+  <div class="wrap">
+    <div class="sec__head">
+      <div class="lead">
+        <div class="sec__num">01 — Concept</div>
+        <div class="kicker"><span class="label" data-en="The Idea" data-ru="Идея">The Idea</span></div>
+        <h2 class="h-1" data-en="Luxury through restraint"
+                data-ru="Роскошь через сдержанность">Luxury through restraint</h2>
+        <p class="lede" style="margin-top:24px">
+          <span data-en="The reference is not a CV. It is the front of a magazine — a masthead that commands the page, imagery that carries the weight, and typography doing the rest. Burgundy never shouts; it appears as a hairline, a folio number, a single italicised word."
+                data-ru="Ориентир — не резюме, а обложка журнала: заставка, которая занимает страницу, фотография, которая несёт вес, и типографика, которая делает остальное. Бургундный никогда не кричит — он появляется как линия, номер колонцифры, одно курсивное слово.">The reference is not a CV. It is the front of a magazine — a masthead that commands the page, imagery that carries the weight, and typography doing the rest. Burgundy never shouts; it appears as a hairline, a folio number, a single italicised word.</span>
+        </p>
+      </div>
+      <div class="side">
+        <span class="pill">Sample content — replace with Ekaterina's real details</span>
+      </div>
+    </div>
+
+    <div class="principles">
+      <div class="principle">
+        <span class="n">01</span>
+        <h3 class="h-3" data-en="The page is the product" data-ru="Страница — это продукт">The page is the product</h3>
+        <p data-en="Full-bleed photography, oversized type, generous margins. Every viewport is composed like a spread, not a scroll of sections." data-ru="Фотография на весь экран, крупная типографика, щедрые поля. Каждый экран — разворот, а не лента секций.">Full-bleed photography, oversized type, generous margins. Every viewport is composed like a spread, not a scroll of sections.</p>
+      </div>
+      <div class="principle">
+        <span class="n">02</span>
+        <h3 class="h-3" data-en="One accent, used sparingly" data-ru="Один акцент — редко">One accent, used sparingly</h3>
+        <p data-en="Burgundy is reserved for emphasis: rules, folio numbers, hover states, the italicised word in a headline. Never a background wash, never a button unless it is the only call to action." data-ru="Бургундный — только для акцентов: линии, номера, hover-состояния, курсивное слово в заголовке. Никогда — заливка фона, никогда — кнопка, если это не единственный призыв.">Burgundy is reserved for emphasis: rules, folio numbers, hover states, the italicised word in a headline. Never a background wash, never a button unless it is the only call to action.</p>
+      </div>
+      <div class="principle">
+        <span class="n">03</span>
+        <h3 class="h-3" data-en="Two languages, one voice" data-ru="Два языка, один голос">Two languages, one voice</h3>
+        <p data-en="EN and RU share the same grid and the same typefaces. Cyrillic sits in Playfair Display and Golos Text natively — and the name itself switches script, Екатерина Липина, so the Russian edition is typographically equal, not a translation crammed in afterwards." data-ru="EN и RU используют одну сетку и одни гарнитуры. Кириллица нативно поддерживается в Playfair Display и Golos Text — и само имя меняет начертание, Екатерина Липина, поэтому русская версия типографически равна, а не втиснута потом.">EN and RU share the same grid and the same typefaces. Cyrillic sits in Playfair Display and Golos Text natively — and the name itself switches script, Екатерина Липина, so the Russian edition is typographically equal, not a translation crammed in afterwards.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════ PALETTE ══════════════════════════ -->
+<section class="sec sec--paper" id="palette">
+  <div class="wrap">
+    <div class="sec__head">
+      <div class="lead">
+        <div class="sec__num">02 — Palette</div>
+        <div class="kicker"><span class="label" data-en="Colour" data-ru="Цвет">Colour</span></div>
+        <h2 class="h-1" data-en="Ink, paper, burgundy" data-ru="Чёрный, бумага, бургунд">Ink, paper, burgundy</h2>
+        <p class="lede" style="margin-top:24px">
+          <span data-en="The deep burgundy is sampled directly from the original studio backdrop, so the interface and the images share one exact colour instead of approximately matching. The photography itself is graded to a single monochrome with burgundy in the shadows — the images sit inside the palette rather than fighting it." data-ru="Глубокий бургунд взят прямо со студийного фона оригиналов, поэтому интерфейс и снимки делят один точный цвет, а не приблизительно совпадают. Сама фотография приведена к единому монохрому с бургундом в тенях — изображения живут внутри палитры, а не спорят с ней.">The deep burgundy is sampled directly from the original studio backdrop, so the interface and the images share one exact colour instead of approximately matching. The photography itself is graded to a single monochrome with burgundy in the shadows — the images sit inside the palette rather than fighting it.</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="swatches">
+      <div class="sw sw--light">
+        <div class="sw__chip" style="background:#0A0A0C"><span class="hex">#0A0A0C</span></div>
+        <div class="sw__body">
+          <span class="nm">Ink</span>
+          <span class="rl">Primary surface</span>
+          <span class="us" data-en="Page ground. Slightly lifted off pure black so the grain texture reads." data-ru="Основа страницы. Чуть приподнята над чистым чёрным, чтобы читалась текстура зерна.">Page ground. Slightly lifted off pure black so the grain texture reads.</span>
+        </div>
+      </div>
+      <div class="sw sw--light">
+        <div class="sw__chip" style="background:#F2EFE9"><span class="hex" style="color:#0A0A0C;mix-blend-mode:normal">#F2EFE9</span></div>
+        <div class="sw__body">
+          <span class="nm">Paper</span>
+          <span class="rl">Inverted surface</span>
+          <span class="us" data-en="Warm off-white for editorial breaks. Never pure #FFF — paper has a temperature." data-ru="Тёплый off-white для редакционных пауз. Никогда не чистый #FFF — у бумаги есть температура.">Warm off-white for editorial breaks. Never pure #FFF — paper has a temperature.</span>
+        </div>
+      </div>
+      <div class="sw">
+        <div class="sw__chip" style="background:#3A0105"><span class="hex">#3A0105</span></div>
+        <div class="sw__body">
+          <span class="nm">Burgundy Deep</span>
+          <span class="rl">Sampled from original</span>
+          <span class="us" data-en="The exact backdrop colour of the original portraits, before the monochrome grade. Panels, about block, image matte." data-ru="Точный цвет фона оригинальных портретов — до монохромной обработки. Панели, блок «О ведущей», подложка изображения.">The exact backdrop colour of the original portraits, before the monochrome grade. Panels, about block, image matte.</span>
+        </div>
+      </div>
+      <div class="sw">
+        <div class="sw__chip" style="background:#A8203A"><span class="hex">#A8203A</span></div>
+        <div class="sw__body">
+          <span class="nm">Burgundy Bright</span>
+          <span class="rl">Accent / signal</span>
+          <span class="us" data-en="The only saturated colour on the page. Italic words, folio numbers, rules, focus rings." data-ru="Единственный насыщенный цвет на странице. Курсив, номера, линии, фокус.">The only saturated colour on the page. Italic words, folio numbers, rules, focus rings.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="usage">
+      <div class="usage__bar" style="grid-column:1/13">
+        <i style="width:58%;background:#0A0A0C;border-right:1px solid rgba(255,255,255,.14)"></i>
+        <i style="width:24%;background:#F2EFE9"></i>
+        <i style="width:10%;background:#3A0105"></i>
+        <i style="width:8%;background:#A8203A"></i>
+      </div>
+      <div class="usage__key" style="grid-column:1/13">
+        <div class="k"><span class="dot" style="background:#0A0A0C;box-shadow:0 0 0 1px rgba(255,255,255,.25)"></span><span><b>58%</b>Ink — dominant ground</span></div>
+        <div class="k"><span class="dot" style="background:#F2EFE9"></span><span><b>24%</b>Paper — inverted spreads</span></div>
+        <div class="k"><span class="dot" style="background:#3A0105"></span><span><b>10%</b>Burgundy Deep — panels</span></div>
+        <div class="k"><span class="dot" style="background:#A8203A"></span><span><b>8%</b>Burgundy Bright — accent</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════ TYPOGRAPHY ══════════════════════════ -->
+<section class="sec" id="type">
+  <div class="wrap">
+    <div class="sec__head">
+      <div class="lead">
+        <div class="sec__num">03 — Typography</div>
+        <div class="kicker"><span class="label" data-en="Type scale" data-ru="Типографика">Type scale</span></div>
+        <h2 class="h-1" data-en="Didone display, quiet support" data-ru="Дидоновский акцидент, тихая поддержка">Didone display, quiet support</h2>
+        <p class="lede" style="margin-top:24px">
+          <span data-en="Four families, all self-hosted with Cyrillic subsets. Playfair Display carries the voice; Golos Text stays out of the way; JetBrains Mono handles the magazine furniture — folios, labels, metadata." data-ru="Четыре гарнитуры, все — self-hosted с кириллическими сабсетами. Playfair Display несёт голос, Golos Text не мешает, JetBrains Mono отвечает за журнальную мебель — колонцифры, лейблы, метаданные.">Four families, all self-hosted with Cyrillic subsets. Playfair Display carries the voice; Golos Text stays out of the way; JetBrains Mono handles the magazine furniture — folios, labels, metadata.</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="spec">
+      <div class="spec__row">
+        <div class="spec__meta">
+          <span class="nm">Prata</span>
+          <span class="det">Masthead<br>400 · 1.00<br>Prata</span>
+        </div>
+        <div class="spec__sample">
+          <div class="masthead" style="font-size:clamp(3rem,8vw,7.4rem);line-height:.88">Ekaterina Lipina</div>
+          <div class="ru masthead" style="font-size:clamp(2rem,5vw,4.4rem);line-height:.9">Екатерина Липина</div>
+        </div>
+      </div>
+
+      <div class="spec__row">
+        <div class="spec__meta">
+          <span class="nm">Playfair Display</span>
+          <span class="det">Display XL<br>400 · 0.86 · −1.5%<br>Clamp 3.4→10rem</span>
+        </div>
+        <div class="spec__sample">
+          <div style="font-family:var(--f-display);font-size:clamp(2.4rem,6vw,5.4rem);line-height:.88">Selected Work</div>
+          <div class="ru" style="font-family:var(--f-display);font-size:clamp(1.9rem,4.6vw,4rem);line-height:.92">Избранные работы</div>
+        </div>
+      </div>
+
+      <div class="spec__row">
+        <div class="spec__meta">
+          <span class="nm">Playfair Italic</span>
+          <span class="det">Accent word<br>400 italic · 1.00<br>Burgundy Bright</span>
+        </div>
+        <div class="spec__sample">
+          <div style="font-family:var(--f-display);font-style:italic;font-size:clamp(2.4rem,6vw,5.4rem);line-height:.88;color:var(--accent-text)">on stage</div>
+          <div class="ru" style="font-family:var(--f-display);font-style:italic;font-size:clamp(1.9rem,4.6vw,4rem);line-height:.92;color:var(--accent-text)">на сцене</div>
+        </div>
+      </div>
+
+      <div class="spec__row">
+        <div class="spec__meta">
+          <span class="nm">Playfair Display</span>
+          <span class="det">Section title<br>400 · 0.94 · −1.5%<br>Clamp 2.6→4.9rem</span>
+        </div>
+        <div class="spec__sample">
+          <div class="h-1">On stage</div>
+          <div class="ru h-3" style="color:var(--grey-500)">На сцене</div>
+        </div>
+      </div>
+
+      <div class="spec__row">
+        <div class="spec__meta">
+          <span class="nm">Golos Text</span>
+          <span class="det">Body<br>400 · 1.72<br>15.5px / max 56ch</span>
+        </div>
+        <div class="spec__sample">
+          <p class="body-p" style="max-width:56ch">Ekaterina presents between Paris and Moscow, moving from corporate galas to live shows and brand programmes. Her approach is unhurried — <strong>precision over volume</strong>, presence over performance.</p>
+        </div>
+      </div>
+
+      <div class="spec__row">
+        <div class="spec__meta">
+          <span class="nm">JetBrains Mono</span>
+          <span class="det">Label / folio<br>400 · .18em · caps<br>10.5px</span>
+        </div>
+        <div class="spec__sample">
+          <div class="label" style="color:var(--white)">LIVE SHOWS — 2026</div>
+          <div class="ru label" style="margin-top:10px">ЖИВЫЕ ШОУ — 2026</div>
+          <div class="ru" style="margin-top:14px;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.18em;color:var(--accent-text)">01 / 05 &nbsp;·&nbsp; ПАРИЖ &nbsp;·&nbsp; F/W 26</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════ GRID ══════════════════════════ -->
+<section class="sec sec--paper" id="grid">
+  <div class="wrap">
+    <div class="sec__head">
+      <div class="lead">
+        <div class="sec__num">04 — Grid &amp; rhythm</div>
+        <div class="kicker"><span class="label" data-en="Structure" data-ru="Структура">Structure</span></div>
+        <h2 class="h-1" data-en="Twelve columns, deliberately broken" data-ru="Двенадцать колонок, намеренно сломанные">Twelve columns, deliberately broken</h2>
+        <p class="lede" style="margin-top:24px">
+          <span data-en="A 12-column field keeps the page honest, but the composition rarely fills it. Images step in and out of the grid, captions hang in the margin, and the eye is pulled across a spread rather than down a list." data-ru="Сетка из 12 колонок держит страницу в рамках, но композиция редко заполняет её целиком. Изображения входят в сетку и выходят из неё, подписи свисают на поле, взгляд ведёт через разворот, а не вниз по списку.">A 12-column field keeps the page honest, but the composition rarely fills it. Images step in and out of the grid, captions hang in the margin, and the eye is pulled across a spread rather than down a list.</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="gridviz">
+      <div></div><div></div><div></div><div></div><div></div><div></div>
+      <div></div><div></div><div></div><div></div><div></div><div></div>
+    </div>
+    <div class="gm">
+      <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span>
+      <span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span class="hi">12</span>
+    </div>
+
+    <div class="metrics">
+      <div class="metric"><div class="v">1680</div><div class="k">Max content width<br>px</div></div>
+      <div class="metric"><div class="v">64</div><div class="k">Outer margin<br>clamp 20→64</div></div>
+      <div class="metric"><div class="v">26</div><div class="k">Column gutter<br>clamp 14→26</div></div>
+      <div class="metric"><div class="v">8</div><div class="k">Baseline unit<br>px rhythm</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════ MOCKUPS ══════════════════════════ -->
+<section class="sec" id="mockups" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec__head">
+      <div class="lead">
+        <div class="sec__num">05 — Layouts</div>
+        <div class="kicker"><span class="label" data-en="In situ" data-ru="В среде">In situ</span></div>
+        <h2 class="h-1" data-en="The pages, as they will ship" data-ru="Страницы — как они будут выглядеть">The pages, as they will ship</h2>
+      </div>
+      <div class="side">
+        <span class="pill">Sample content — replace with real work</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERO MOCK -->
+  <div class="wrap" style="margin-bottom:clamp(40px,7vh,90px)">
+    <div class="mock">
+      <div class="mock__bar">
+        <div class="mock__logo" data-en="Ekaterina Lipina" data-ru="Екатерина Липина">Ekaterina Lipina</div>
+        <nav class="mock__nav">
+          <a class="on" data-en="Shows" data-ru="Шоу">Shows</a>
+          <a data-en="About" data-ru="О ведущей">About</a>
+          <a data-en="Press" data-ru="Пресса">Press</a>
+          <a data-en="Contact" data-ru="Контакты">Contact</a>
+        </nav>
+        <div class="mock__right">
+          <div class="lang">
+            <button class="on" data-lang="en">EN</button><span class="sep">/</span><button data-lang="ru">RU</button>
+          </div>
+        </div>
+      </div>
+      <div class="hero grain">
+        <div class="hero__bg"><img src="assets/img/stand-burgundy-mono-1600.webp" alt=""></div>
+        <div class="hero__in">
+          <div class="hero__copy">
+            <div class="hero__eyebrow">
+              <span class="dot"></span>
+              <span class="label" data-en="Presenter — Paris / Moscow" data-ru="Ведущая — Париж / Москва">Presenter — Paris / Moscow</span>
+            </div>
+            <h2 class="hero__title">
+              <span class="ln" data-en="Ekaterina" data-ru="Екатерина">Ekaterina</span>
+              <span class="ln accent" data-en="Lipina" data-ru="Липина">Lipina</span>
+            </h2>
+            <div class="hero__row">
+              <p class="body-p" data-en="Corporate events, live shows, galas and brand programmes. Hosting and moderation in Russian, English and French — in Paris, Moscow and on location." data-ru="Корпоративные мероприятия, живые шоу, гала и брендовые программы. Ведение и модерация на русском, английском и французском — в Париже, Москве и на выезде.">Corporate events, live shows, galas and brand programmes. Hosting and moderation in Russian, English and French — in Paris, Moscow and on location.</p>
+              <div class="hero__cta">
+                <span class="btn btn--primary"><span data-en="Shows &amp; events" data-ru="Шоу и события">Shows &amp; events</span><span class="arw">→</span></span>
+                <span class="btn" data-en="Book her" data-ru="Пригласить">Book her</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="hero__folio">
+          <span class="label">№ 01 — 2026</span>
+          <span class="label label--accent">Scroll</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WORK MOCK -->
+  <div class="wrap" style="margin-bottom:clamp(40px,7vh,90px)">
+    <div class="mock">
+      <div class="mock__bar">
+        <div class="mock__logo" data-en="Shows &amp; Events" data-ru="Шоу и события">Shows &amp; Events</div>
+        <nav class="mock__nav">
+          <a class="on" data-en="Live show" data-ru="Живое шоу">Live show</a>
+          <a data-en="Event" data-ru="Мероприятие">Event</a>
+          <a data-en="Moderation" data-ru="Модерация">Moderation</a>
+        </nav>
+        <div class="mock__right"><span class="label">05 / 05</span></div>
+      </div>
+      <div class="works">
+        <article class="work work--a">
+          <div class="work__frame" style="aspect-ratio:3/4">
+            <span class="work__tag">Live show</span>
+            <img src="assets/img/stand-burgundy-mono-1000.webp" alt="">
+          </div>
+          <div class="work__body">
+            <span class="t">Maison Lumière</span>
+            <span class="m" data-en="Brand gala · 400 guests" data-ru="Бренд-гала · 400 гостей">Brand gala · 400 guests</span>
+          </div>
+        </article>
+        <article class="work work--b">
+          <div class="work__frame" style="aspect-ratio:2/3">
+            <span class="work__tag">Runway</span>
+            <img src="assets/img/seated-burgundy-mono-800.webp" alt="">
+          </div>
+          <div class="work__body">
+            <span class="t">Fashion Week Paris</span>
+            <span class="m" data-en="Runway host" data-ru="Ведение подиума">Runway host</span>
+          </div>
+        </article>
+        <article class="work work--c">
+          <div class="work__frame" style="aspect-ratio:16/10">
+            <span class="work__tag">Moderation</span>
+            <img src="assets/img/seated-light-mono-1000.webp" alt="">
+          </div>
+          <div class="work__body">
+            <span class="t">Tech Summit</span>
+            <span class="m" data-en="Panel · 3 speakers" data-ru="Панель · 3 спикера">Panel · 3 speakers</span>
+          </div>
+        </article>
+        <article class="work work--d">
+          <div class="work__frame" style="aspect-ratio:2/3">
+            <span class="work__tag">Event</span>
+            <img src="assets/img/stand-light-mono-800.webp" alt="">
+          </div>
+          <div class="work__body">
+            <span class="t">Festival Main Stage</span>
+            <span class="m" data-en="Live programme" data-ru="Живая программа">Live programme</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABOUT MOCK -->
+  <div class="wrap" style="margin-bottom:clamp(40px,7vh,90px)">
+    <div class="mock" style="background:var(--burgundy-deep);border-color:var(--burgundy-deep)">
+      <div class="mock__bar" style="background:rgba(0,0,0,.28);border-color:rgba(255,255,255,.12)">
+        <div class="mock__logo" data-en="About" data-ru="О ведущей">About</div>
+        <div class="mock__right"><span class="label" style="color:rgba(255,255,255,.6)" data-en="02 — Profile" data-ru="02 — Профиль">02 — Profile</span></div>
+      </div>
+      <div class="about">
+        <div class="about__art grain">
+          <div class="bg"></div>
+          <img src="assets/img/stand-light-cutout-mono-1400.webp" alt="">
+        </div>
+        <div class="about__copy">
+          <div class="kicker"><span class="label" style="color:#fff" data-en="The profile" data-ru="Профиль">The profile</span></div>
+          <h2 class="h-1" style="color:#fff" data-en="Calm on stage, <em class='italic' style='color:var(--accent-text)'>exact</em> on cue." data-ru="Спокойна на сцене, <em class='italic' style='color:var(--accent-text)'>точна</em> до секунды.">Measured, <em class="italic" style="color:var(--burgundy-bright)">unhurried</em>, exact.</h2>
+          <p class="body-p" style="color:rgba(255,255,255,.78)" data-en="Ekaterina Lipina presents corporate events, live shows and brand programmes across Paris and Moscow. Her style is unhurried and exact — she holds a room, keeps a schedule, and never raises her voice to fill a silence." data-ru="Екатерина Липина ведёт корпоративные мероприятия, живые шоу и брендовые программы в Париже и Москве. Манера спокойная и точная: удерживает зал, держит тайминг и никогда не повышает голос, чтобы заполнить паузу.">Ekaterina Lipina presents corporate events, live shows and brand programmes across Paris and Moscow. Her style is unhurried and exact — she holds a room, keeps a schedule, and never raises her voice to fill a silence.</p>
+          <div class="about__stats">
+            <div><div class="k" data-en="Languages" data-ru="Языки">Languages</div><div class="v">RU · EN · FR</div></div>
+            <div><div class="k" data-en="Formats" data-ru="Форматы">Formats</div><div class="v">Hosting · Live</div></div>
+            <div><div class="k" data-en="On stage" data-ru="На сцене">On stage</div><div class="v">8 years</div></div>
+            <div><div class="k" data-en="Based" data-ru="База">Based</div><div class="v">Paris / Moscow</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUOTE -->
+  <div class="wrap" style="margin-bottom:clamp(40px,7vh,90px)">
+    <div class="mock">
+      <div class="quote grain" style="background:var(--ink)">
+        <blockquote data-en="“She takes the stage and the room settles into her rhythm.”" data-ru="«Она выходит на сцену — и зал подстраивается под её ритм.»">“She takes the stage and the room settles into her rhythm.”</blockquote>
+        <div class="by"><span class="label" data-en="Event director — Paris" data-ru="Продюсер мероприятия — Париж">Event director — Paris</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOOKINGS MOCK -->
+  <div class="wrap">
+    <div class="mock">
+      <div class="mock__bar">
+        <div class="mock__logo" data-en="Bookings" data-ru="Букинг">Bookings</div>
+        <div class="mock__right"><span class="label" data-en="03 — Contact" data-ru="03 — Контакты">03 — Contact</span></div>
+      </div>
+      <div class="book grain">
+        <div class="book__grid">
+          <div class="book__copy">
+            <div class="kicker"><span class="label" data-en="Enquiries" data-ru="Запросы">Enquiries</span></div>
+            <h2 class="book__title"><span data-en="Book " data-ru="Пригласить ">Book </span><span class="ac" data-en="Ekaterina" data-ru="Екатерину">Ekaterina</span></h2>
+            <p class="body-p" style="max-width:44ch" data-en="For corporate events, live shows, runways, galas and summits. Formats, tech rider, rates and availability on request." data-ru="Корпоративные мероприятия, живые шоу, подиум, гала и саммиты. Форматы, технический райдер, ставки и доступность — по запросу.">For corporate events, live shows, runways, galas and summits. Formats, tech rider, rates and availability on request.</p>
+            <div class="book__list">
+              <div><div class="k" data-en="Agency" data-ru="Агентство">Agency</div><div class="v"><a href="#">Agency Name</a></div></div>
+              <div><div class="k" data-en="Direct" data-ru="Прямой контакт">Direct</div><div class="v"><a href="#">hello@ekaterina.lipina</a></div></div>
+              <div><div class="k" data-en="Formats" data-ru="Форматы">Formats</div><div class="v">Hosting · Moderation · Live</div></div>
+              <div><div class="k" data-en="Languages" data-ru="Языки">Languages</div><div class="v">Russian · English · French</div></div>
+            </div>
+            <div style="margin-top:34px;display:flex;gap:14px;flex-wrap:wrap">
+              <span class="btn btn--primary"><span data-en="Send an enquiry" data-ru="Отправить запрос">Send an enquiry</span><span class="arw">→</span></span>
+              <span class="btn"><span data-en="Showreel" data-ru="Шоу-рил">Showreel</span></span>
+            </div>
+          </div>
+          <div class="book__art grain">
+            <img src="assets/img/seated-light-cutout-mono-800.webp" alt="">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════ COMPONENTS ══════════════════════════ -->
+<section class="sec" id="components">
+  <div class="wrap">
+    <div class="sec__head">
+      <div class="lead">
+        <div class="sec__num">06 — Components</div>
+        <div class="kicker"><span class="label" data-en="Library" data-ru="Библиотека">Library</span></div>
+        <h2 class="h-1" data-en="The furniture" data-ru="Мебель">The furniture</h2>
+        <p class="lede" style="margin-top:24px">
+          <span data-en="Small parts, consistently reused. Hover states are slow and deliberate — 300ms with a shared easing — so the page feels weighted rather than twitchy." data-ru="Мелкие детали, которые переиспользуются. Hover-состояния медленные и намеренные — 300 мс с общей кривой — чтобы страница казалась весомой, а не нервной.">Small parts, consistently reused. Hover states are slow and deliberate — 300ms with a shared easing — so the page feels weighted rather than twitchy.</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="comps">
+      <div class="comp">
+        <div class="comp__lbl">Buttons</div>
+        <div class="comp__row">
+          <span class="btn btn--primary">Primary <span class="arw">→</span></span>
+          <span class="btn">Ghost</span>
+          <a href="#" class="link-u" style="font-family:var(--f-mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase">Text link</a>
+        </div>
+
+        <div class="comp__lbl">Language toggle</div>
+        <div class="comp__row">
+          <span class="tog"><button data-lang="en">EN</button><button data-lang="ru">RU</button></span>
+          <span class="label" style="letter-spacing:.14em">Swaps in place · no reflow</span>
+        </div>
+
+        <div class="comp__lbl">Labels &amp; pills</div>
+        <div class="comp__row">
+          <span class="pill">Sample content</span>
+          <span class="label">LIVE SHOWS — 2026</span>
+        </div>
+      </div>
+
+      <div class="comp">
+        <div class="comp__lbl">Folio / index list</div>
+        <div class="folio-row">
+          <div class="folio"><span class="n">01</span><span class="t">Maison Lumière</span><span class="m">Live show</span></div>
+          <div class="folio"><span class="n">02</span><span class="t">Fashion Week Paris</span><span class="m">Runway</span></div>
+          <div class="folio"><span class="n">03</span><span class="t">Tech Summit</span><span class="m">Moderation</span></div>
+          <div class="folio"><span class="n">04</span><span class="t">Festival Main Stage</span><span class="m">Event</span></div>
+          <div class="folio"><span class="n">05</span><span class="t">Press Archive</span><span class="m">Selected</span></div>
+        </div>
+
+        <div class="comp__lbl">Rules</div>
+        <div class="comp__row" style="flex-direction:column;align-items:stretch;gap:12px">
+          <div class="rule"></div>
+          <div class="rule rule--accent" style="width:120px"></div>
+          <div class="rule rule--light"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════ MOTION ══════════════════════════ -->
+<section class="sec sec--paper" id="motion">
+  <div class="wrap">
+    <div class="sec__head">
+      <div class="lead">
+        <div class="sec__num">07 — Motion</div>
+        <div class="kicker"><span class="label" data-en="Behaviour" data-ru="Поведение">Behaviour</span></div>
+        <h2 class="h-1" data-en="Slow reveals, no bounce" data-ru="Медленные появления, без пружины">Slow reveals, no bounce</h2>
+        <p class="lede" style="margin-top:24px">
+          <span data-en="Images settle from a slight over-scale and dim into place. Text rises a short distance, masked. Nothing overshoots, nothing bounces — the motion reads as a camera settling, not a UI animating." data-ru="Изображения оседают из лёгкого перелёта и приглушения. Текст поднимается на небольшое расстояние под маской. Ничего не перелетает, ничего не пружинит — движение читается как settling камеры, а не как анимация интерфейса.">Images settle from a slight over-scale and dim into place. Text rises a short distance, masked. Nothing overshoots, nothing bounces — the motion reads as a camera settling, not a UI animating.</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="motion">
+      <div class="mf"><img src="assets/img/stand-burgundy-mono-800.webp" alt=""><span class="cap">01 · Enter — 1.14× / 35%</span></div>
+      <div class="mf"><img src="assets/img/stand-burgundy-mono-800.webp" alt=""><span class="cap">02 · Settle — 1.07× / 70%</span></div>
+      <div class="mf"><img src="assets/img/stand-burgundy-mono-800.webp" alt=""><span class="cap">03 · Rest — 1.00× / 100%</span></div>
+    </div>
+
+    <div class="note" style="margin-top:clamp(34px,5vh,58px)">
+      <b>Timing.</b> Image reveal 1100ms cubic-bezier(.2,.7,.2,1). Text rise 900ms, 60ms stagger between lines. Hover 300ms. All motion respects <b>prefers-reduced-motion</b> — frames settle instantly and nothing moves.
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════ FOOTER ══════════════════════════ -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__grid">
+      <div class="foot__brand">
+        <div class="nm" data-en="Ekaterina<br>Lipina" data-ru="Екатерина<br>Липина">Ekaterina<br>Lipina</div>
+        <p class="body-p" style="font-size:14px">
+          <span data-en="Presenter — Paris / Moscow. Corporate events, live shows and brand programmes." data-ru="Ведущая — Париж / Москва. Корпоративные мероприятия, живые шоу и брендовые программы.">Presenter — Paris / Moscow. Corporate events, live shows and brand programmes.</span>
+        </p>
+      </div>
+      <div class="foot__col">
+        <div class="k" data-en="Sitemap" data-ru="Разделы">Sitemap</div>
+        <a href="#mockups" data-en="Shows" data-ru="Шоу">Shows</a>
+        <a href="#mockups" data-en="About" data-ru="О ведущей">About</a>
+        <a href="#mockups" data-en="Press" data-ru="Пресса">Press</a>
+      </div>
+      <div class="foot__col">
+        <div class="k" data-en="Contact" data-ru="Контакты">Contact</div>
+        <a href="#">hello@ekaterina.lipina</a>
+        <a href="#">+33 6 00 00 00 00</a>
+        <a href="#">@ekaterina.lipina</a>
+      </div>
+      <div class="foot__col">
+        <div class="k" data-en="Legal" data-ru="Правовое">Legal</div>
+        <a href="#" data-en="Imprint" data-ru="Выходные данные">Imprint</a>
+        <a href="#" data-en="Privacy" data-ru="Конфиденциальность">Privacy</a>
+        <a href="#" data-en="Rights" data-ru="Права">Rights</a>
+      </div>
+    </div>
+    <div class="foot__bottom">
+      <span class="label" data-en="© 2026 Ekaterina Lipina" data-ru="© 2026 Екатерина Липина">© 2026 Ekaterina Lipina</span>
+      <span class="label" data-en="Paris — Moscow" data-ru="Париж — Москва">Paris — Moscow</span>
+      <span class="label label--accent" data-en="Design Direction № 01" data-ru="Дизайн-направление № 01">Design Direction № 01</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ---------- scroll progress + rail ---------- */
+const prog = document.getElementById('prog');
+const railLinks = [...document.querySelectorAll('#rail a')];
+const sections = railLinks.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+
+function onScroll(){
+  const h = document.documentElement;
+  const max = h.scrollHeight - h.clientHeight;
+  prog.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
+  let idx = 0;
+  sections.forEach((s,i)=>{ if (s.getBoundingClientRect().top <= window.innerHeight*0.4) idx = i; });
+  railLinks.forEach((a,i)=>a.classList.toggle('on', i===idx));
+}
+window.addEventListener('scroll', onScroll, {passive:true});
+onScroll();
+
+/* ---------- reveal on enter ---------- */
+const rv = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); rv.unobserve(e.target); } });
+},{threshold:.16, rootMargin:'0px 0px -8% 0px'});
+document.querySelectorAll('.rv, .sec__head, .principle, .sw, .spec__row, .metric, .comp, .mf, .note, .work').forEach(el=>{
+  el.classList.add('rv'); rv.observe(el);
+});
+
+/* ---------- EN / RU toggle ---------- */
+function setLang(lang){
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-en][data-ru]').forEach(el=>{
+    el.innerHTML = el.getAttribute('data-'+lang);
+  });
+  document.querySelectorAll('[data-lang]').forEach(b=>{
+    b.classList.toggle('on', b.getAttribute('data-lang')===lang);
+  });
+  document.title = lang === 'ru'
+    ? 'Екатерина Липина — Ведущая мероприятий и шоу'
+    : 'Ekaterina Lipina — Presenter & Show Host';
+  try{ localStorage.setItem('el-lang', lang); }catch(e){}
+}
+document.querySelectorAll('[data-lang]').forEach(b=>{
+  b.addEventListener('click', ()=> setLang(b.getAttribute('data-lang')));
+});
+let saved = null;
+try{ saved = localStorage.getItem('el-lang'); }catch(e){}
+setLang(saved || 'en');
+
+/* ---------- reduced motion ---------- */
+if (window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+  document.querySelectorAll('.rv').forEach(el=>el.classList.add('in'));
+}
+</script>
+</body>
+</html>

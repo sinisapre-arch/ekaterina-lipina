@@ -1,0 +1,4 @@
+# Original studio photography - kept in git, not shipped to the web
+*.PNG
+*.png
+!assets/img/*.webp
