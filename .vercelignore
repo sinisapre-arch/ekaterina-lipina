@@ -1,4 +1,8 @@
-# Original studio photography - kept in git, not shipped to the web
-*.PNG
-*.png
-!assets/img/*.webp
+# Original studio photography and matte intermediates - kept in git, not shipped to the web.
+# assets/img/og-cover.png is the social share card and MUST be published.
+/IMG_7103.png
+/IMG_7107.png
+/Qwen_image_2.1_00024.png
+/Qwen_image_2.1_00025.png
+/assets/img/stand-light-cutout.png
+/assets/img/seated-light-cutout.png
