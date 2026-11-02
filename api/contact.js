@@ -1,11 +1,21 @@
 /**
- * POST /api/contact  —  booking enquiry -> Telegram.
+ * POST /api/contact — same-origin fallback for the enquiry form.
  *
- * The bot token never reaches the browser: it lives in the server-side
- * environment (TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID on Vercel).
+ * Identical contract to the Cloudflare worker (worker/src/index.js), so the
+ * client code is the same for both:
+ *   body: { name, message, projectType }
+ *   → 200 { success: true }
+ *   → 4xx/5xx { error }
  *
- * Body: { name, phone, email?, callback?: boolean }
+ * The bot token + chat ID live in the Vercel environment
+ * (TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID), never in the browser.
  */
+const CORS = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Headers': 'Content-Type',
+  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+};
+
 const RATE_WINDOW_MS = 60 * 1000;
 const RATE_MAX = 5;
 const hits = new Map();
@@ -32,25 +42,16 @@ function esc(s) {
 
 module.exports = async function handler(req, res) {
   res.setHeader('Cache-Control', 'no-store');
+  Object.entries(CORS).forEach(([k, v]) => res.setHeader(k, v));
 
+  if (req.method === 'OPTIONS') return res.status(204).end();
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
-    return res.status(405).json({ ok: false, error: 'method_not_allowed' });
+    return res.status(405).json({ error: 'Method not allowed' });
   }
 
   const token = process.env.TELEGRAM_BOT_TOKEN;
   const chatId = process.env.TELEGRAM_CHAT_ID;
-  if (!token || !chatId) {
-    return res.status(503).json({ ok: false, error: 'telegram_not_configured' });
-  }
-
-  const ip =
-    (req.headers['x-forwarded-for'] || '').toString().split(',')[0].trim() ||
-    req.socket?.remoteAddress ||
-    'unknown';
-  if (rateLimited(ip)) {
-    return res.status(429).json({ ok: false, error: 'too_many_requests' });
-  }
 
   let body = req.body;
   if (typeof body === 'string') {
@@ -58,26 +59,32 @@ module.exports = async function handler(req, res) {
   }
   body = body || {};
 
-  // honeypot — a filled field means a bot; answer as if it worked
-  if (body.company) return res.status(200).json({ ok: true });
+  // Honeypot — a filled field means a bot. Answer as if it worked.
+  if (body.company) return res.status(200).json({ success: true });
 
-  const name = String(body.name || '').trim().slice(0, 120);
-  const phone = String(body.phone || '').trim().slice(0, 60);
-  const email = String(body.email || '').trim().slice(0, 120);
-  const callback = !!body.callback;
+  const name = String(body.name || '').trim().slice(0, 100);
+  const message = String(body.message || '').trim().slice(0, 2000);
+  const projectType = String(body.projectType || 'contact').trim().slice(0, 60);
 
-  if (name.length < 2 || phone.length < 5) {
-    return res.status(400).json({ ok: false, error: 'name_and_phone_required' });
+  if (name.length < 2) {
+    return res.status(400).json({ error: 'name is required' });
   }
 
-  const lines = [
-    '<b>Новая заявка с сайта</b>',
-    '',
-    `<b>ФИО:</b> ${esc(name)}`,
-    `<b>Телефон:</b> ${esc(phone)}`,
-  ];
-  if (email) lines.push(`<b>Email:</b> ${esc(email)}`);
-  lines.push('', callback ? 'Запрошен <b>обратный звонок</b>.' : 'Ответ по почте.');
+  const ip =
+    (req.headers['x-forwarded-for'] || '').toString().split(',')[0].trim() ||
+    req.socket?.remoteAddress ||
+    'unknown';
+  if (rateLimited(ip)) {
+    return res.status(429).json({ error: 'too_many_requests' });
+  }
+
+  if (!token || !chatId) {
+    return res.status(503).json({ error: 'telegram_not_configured' });
+  }
+
+  const lines = [`<b>👤 ${esc(name)}</b>`, ''];
+  if (message) lines.push(esc(message));
+  if (projectType) lines.push('', `<i>источник: ${esc(projectType)}</i>`);
 
   try {
     const r = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
@@ -92,10 +99,10 @@ module.exports = async function handler(req, res) {
     });
     const data = await r.json().catch(() => ({}));
     if (!r.ok || !data.ok) {
-      return res.status(502).json({ ok: false, error: 'telegram_rejected' });
+      return res.status(502).json({ error: data?.description || `HTTP ${r.status}` });
     }
-    return res.status(200).json({ ok: true });
+    return res.status(200).json({ success: true });
   } catch (e) {
-    return res.status(502).json({ ok: false, error: 'telegram_unreachable' });
+    return res.status(502).json({ error: e?.message || 'telegram_unreachable' });
   }
 };

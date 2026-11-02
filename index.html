@@ -931,6 +931,10 @@ var SITE = {
   // Leave empty and the facade links out to the channel instead.
   reelVideoId: '',
   reelChannel: 'https://youtube.com/@esyasosnovaya',
+  // Primary endpoint: Cloudflare worker holding the bot token server-side.
+  // Same contract as the PlanoLand2 site.
+  telegramWorker: 'https://mscw-esya-bot.sinisapre.workers.dev',
+  // Same-origin fallback, identical contract.
   contactEndpoint: '/api/contact'
 };
 
@@ -1060,39 +1064,64 @@ bkForm.addEventListener('submit', function(e){
   bkStatus.className = 'modal__status';
   bkStatus.textContent = document.documentElement.lang === 'ru' ? 'Отправляю…' : 'Sending…';
 
-  fetch(SITE.contactEndpoint, {
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body: JSON.stringify({
-      name: name.value.trim(),
-      phone: phone.value.trim(),
-      email: email.value.trim(),
-      callback: callback.checked
+  // Same body shape as the PlanoLand2 worker: the client formats the message
+  // with emoji markers, the worker only relays it to Telegram.
+  var lines = ['📞 ' + phone.value.trim()];
+  if(email.value.trim()) lines.push('✉️ ' + email.value.trim());
+  if(callback.checked) lines.push('🔔 ' + (document.documentElement.lang === 'ru'
+    ? 'Запрошен обратный звонок'
+    : 'Callback requested'));
+  var payload = {
+    name: name.value.trim(),
+    message: lines.join('\n'),
+    projectType: 'booking',
+    company: company.value
+  };
+
+  function post(url){
+    return fetch(url, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify(payload)
+    }).then(function(r){
+      return r.json().then(function(d){ return {ok:r.ok, data:d}; })
+                   .catch(function(){ return {ok:r.ok, data:{}}; });
+    });
+  }
+
+  // Worker first; if it is unreachable or refuses, fall back to the
+  // same-origin endpoint. Both hold the token server-side.
+  post(SITE.telegramWorker)
+    .then(function(res){
+      if(res.ok && res.data && res.data.success) return res;
+      return post(SITE.contactEndpoint);
     })
-  }).then(function(r){
-    return r.json().then(function(d){ return {ok:r.ok, data:d}; });
-  }).then(function(res){
-    bkSubmit.disabled = false;
-    if(res.ok && res.data && res.data.ok){
-      bkStatus.className = 'modal__status ok';
-      bkStatus.textContent = document.documentElement.lang === 'ru'
-        ? 'Спасибо! Запрос отправлен — я свяжусь с вами.'
-        : 'Thank you! Your enquiry is in — I will be in touch.';
-      bkForm.reset();
-    }else{
+    .catch(function(){
+      return post(SITE.contactEndpoint);
+    })
+    .then(function(res){
+      bkSubmit.disabled = false;
+      if(res && res.ok && res.data && res.data.success){
+        bkStatus.className = 'modal__status ok';
+        bkStatus.textContent = document.documentElement.lang === 'ru'
+          ? 'Спасибо! Запрос отправлен — я свяжусь с вами.'
+          : 'Thank you! Your enquiry is in — I will be in touch.';
+        bkForm.reset();
+      }else{
+        bkStatus.className = 'modal__status err';
+        var msg = (res && res.data && res.data.error) ? res.data.error : 'error';
+        bkStatus.textContent = document.documentElement.lang === 'ru'
+          ? 'Не удалось отправить. Напишите, пожалуйста, в Telegram: ' + msg
+          : 'Could not send. Please write on Telegram instead: ' + msg;
+      }
+    })
+    .catch(function(){
+      bkSubmit.disabled = false;
       bkStatus.className = 'modal__status err';
-      var msg = (res.data && res.data.error) ? res.data.error : 'error';
       bkStatus.textContent = document.documentElement.lang === 'ru'
-        ? 'Не удалось отправить. Напишите, пожалуйста, в Telegram: ' + msg
-        : 'Could not send. Please write on Telegram instead: ' + msg;
-    }
-  }).catch(function(){
-    bkSubmit.disabled = false;
-    bkStatus.className = 'modal__status err';
-    bkStatus.textContent = document.documentElement.lang === 'ru'
-      ? 'Нет соединения. Напишите, пожалуйста, в Telegram или WhatsApp.'
-      : 'No connection. Please write on Telegram or WhatsApp instead.';
-  });
+        ? 'Нет соединения. Напишите, пожалуйста, в Telegram или WhatsApp.'
+        : 'No connection. Please write on Telegram or WhatsApp instead.';
+    });
 });
 
 /* ---------- mobile menu ---------- */

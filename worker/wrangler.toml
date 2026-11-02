@@ -1,0 +1,7 @@
+name = "mscw-esya-bot"
+main = "src/index.js"
+compatibility_date = "2026-10-01"
+
+# Secrets (set with `wrangler secret put`):
+#   TELEGRAM_BOT_TOKEN — bot token, server-side only
+#   TELEGRAM_CHAT_ID  — destination chat id
