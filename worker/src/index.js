@@ -60,7 +60,11 @@ export default {
     if (name.length < 2) {
       return json({ error: 'name is required' }, 400);
     }
-    if (!env.TELEGRAM_BOT_TOKEN || !env.TELEGRAM_CHAT_ID) {
+    // Trim the secrets: a stray newline from a CLI pipe would otherwise turn
+    // into a Telegram 404 ("Not Found") instead of a clear error.
+    const botToken = String(env.TELEGRAM_BOT_TOKEN || '').trim();
+    const chatId = String(env.TELEGRAM_CHAT_ID || '').trim();
+    if (!botToken || !chatId) {
       return json({ error: 'telegram_not_configured' }, 503);
     }
 
@@ -70,12 +74,12 @@ export default {
 
     try {
       const res = await fetch(
-        `https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`,
+        `https://api.telegram.org/bot${botToken}/sendMessage`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            chat_id: env.TELEGRAM_CHAT_ID,
+            chat_id: chatId,
             text: lines.join('\n'),
             parse_mode: 'HTML',
             disable_web_page_preview: true,
