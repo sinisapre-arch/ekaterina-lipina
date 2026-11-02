@@ -574,7 +574,7 @@ noscript .rv{opacity:1;transform:none}
     <span class="reel__play"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M18 6v88l72-44z"/></svg></span>
     <span class="reel__cap">
       <span class="t" data-en="Watch the showreel" data-ru="Смотреть видеовизитку">Смотреть видеовизитку</span>
-      <span class="reel__note" data-en="Click to load from YouTube" data-ru="Нажмите — загрузка с YouTube">Нажмите — загрузка с YouTube</span>
+      <span class="reel__note" data-en="Open on YouTube" data-ru="Открыть на YouTube">Открыть на YouTube</span>
     </span>
   </button>
 
@@ -933,6 +933,16 @@ var SITE = {
   reelChannel: 'https://youtube.com/@esyasosnovaya',
   contactEndpoint: '/api/contact'
 };
+
+/* If a video id is set the facade embeds it in-page; without one it hands the
+   visitor over to the channel, so the label follows the behaviour. */
+if (SITE.reelVideoId) {
+  var reelNote = document.querySelector('.reel__note');
+  if (reelNote) {
+    reelNote.setAttribute('data-en', 'Click to load from YouTube');
+    reelNote.setAttribute('data-ru', 'Нажмите — загрузка с YouTube');
+  }
+}
 
 /* ---------- scroll progress ---------- */
 var prog = document.getElementById('prog');
