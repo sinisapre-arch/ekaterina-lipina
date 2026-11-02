@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="assets/css/fonts.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1200px;height:630px;overflow:hidden}
+body{
+  background:#0A0A0C;color:#fff;font-family:'Golos Text',sans-serif;position:relative;
+}
+.card{position:relative;width:1200px;height:630px;overflow:hidden}
+.card__img{position:absolute;inset:0 0 0 46%;overflow:hidden}
+.card__img img{width:100%;height:100%;object-fit:cover;object-position:50% 14%}
+.card__img::after{
+  content:"";position:absolute;inset:0;
+  background:
+    linear-gradient(90deg,#0A0A0C 0%,rgba(10,10,12,.93) 14%,rgba(10,10,12,.42) 46%,rgba(58,1,5,.24) 100%),
+    linear-gradient(0deg,rgba(10,10,12,.85) 0%,transparent 46%);
+}
+.card__body{position:absolute;inset:0;padding:64px 60px;display:flex;flex-direction:column;justify-content:center;z-index:2}
+.eyebrow{display:flex;align-items:center;gap:16px;margin-bottom:26px}
+.dot{width:7px;height:7px;background:#A8203A;border-radius:50%}
+.label{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:#A9A9B1}
+.label--accent{color:#C85169}
+h1{font-family:'Prata',serif;font-weight:400;font-size:62px;line-height:1.02;letter-spacing:-.01em;max-width:640px}
+h1 em{font-style:italic;color:#C85169}
+.lede{font-size:19px;line-height:1.55;color:#A9A9B1;max-width:500px;margin-top:24px}
+.rule{height:1px;background:rgba(255,255,255,.14);margin:34px 0 0}
+.foot{position:absolute;left:60px;right:60px;bottom:44px;display:flex;justify-content:space-between;align-items:center;z-index:3}
+.brand{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:#72727A}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="card__img">
+    <img src="assets/img/hero-stage-1600.webp" alt="">
+  </div>
+  <div class="card__body">
+    <div class="eyebrow">
+      <span class="dot"></span>
+      <span class="label">Ведущая шоу</span>
+      <span class="label label--accent">Москва и выезд</span>
+    </div>
+    <h1>Я не просто веду —<br><em>я создаю шоу</em></h1>
+    <p class="lede">Корпоративные мероприятия, брендовые события, шоу и интертейнмент, премии. На русском и английском языках.</p>
+  </div>
+  <div class="foot">
+    <span class="brand">Екатерина Сосноватая</span>
+    <span class="brand label--accent">Show host</span>
+  </div>
+</div>
+</body>
+</html>
