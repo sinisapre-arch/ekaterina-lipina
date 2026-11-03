@@ -270,8 +270,8 @@ ul.bullets li b{color:var(--white);font-weight:500}
    ABOUT
    ============================================================ */
 .about{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--gutter);align-items:start}
-.about__art{grid-column:1/6;position:relative;background:var(--burgundy-deep);padding:clamp(26px,3vw,46px)}
-.about__art img{position:relative;width:100%}
+.about__art{grid-column:1/6;position:relative;background:var(--burgundy-deep);padding:0;overflow:hidden}
+.about__art img{position:relative;width:100%;aspect-ratio:2/3;height:auto;object-fit:cover;object-position:50% 50%}
 .about__copy{grid-column:7/13;min-width:0}
 .about__copy h2{margin-bottom:24px}
 .about__copy p{margin-bottom:18px}
@@ -315,12 +315,13 @@ ul.bullets li b{color:var(--white);font-weight:500}
 .gallery__head{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--gutter);align-items:end;margin-bottom:clamp(28px,4vh,46px);padding:0 var(--pad)}
 .gallery__head .lead{grid-column:1/8;min-width:0}
 .gallery__head .side{grid-column:9/13;display:flex;justify-content:flex-end;gap:10px;min-width:0}
-.carousel{display:flex;gap:clamp(10px,1.4vw,20px);overflow-x:auto;scroll-snap-type:x mandatory;padding:0 var(--pad) 26px;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
+.carousel{display:flex;gap:clamp(10px,1.4vw,20px);overflow-x:auto;scroll-snap-type:x mandatory;padding:0 var(--pad) 26px;scroll-padding-inline:var(--pad);-webkit-overflow-scrolling:touch;scrollbar-width:thin}
 .carousel::-webkit-scrollbar{height:3px}
 .carousel::-webkit-scrollbar-track{background:rgba(10,10,12,.12)}
 .carousel::-webkit-scrollbar-thumb{background:var(--burgundy)}
 .carousel__item{flex:0 0 auto;width:clamp(230px,26vw,340px);scroll-snap-align:start;position:relative}
 .carousel__item img{width:100%;aspect-ratio:4/5;object-fit:cover;background:var(--paper-2)}
+.carousel__item--carpet img{object-position:50% 32%}
 .carousel__cap{margin-top:11px;font-family:var(--f-mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--grey-500)}
 .car-nav{width:42px;height:42px;border:1px solid var(--line-light);background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s;color:var(--ink)}
 .car-nav:hover{background:var(--ink);color:var(--white);border-color:var(--ink)}
@@ -334,8 +335,8 @@ ul.bullets li b{color:var(--white);font-weight:500}
 .contact__copy{grid-column:1/6;min-width:0}
 .contact__copy h2{margin-bottom:24px}
 .contact__links{grid-column:6/10;min-width:0;display:flex;flex-direction:column}
-.contact__art{grid-column:10/13;min-width:0;align-self:end;background:var(--burgundy-deep);padding:clamp(18px,2vw,28px);overflow:hidden}
-.contact__art img{width:100%;aspect-ratio:2/3;height:auto;object-fit:cover;object-position:50% 10%}
+.contact__art{grid-column:10/13;min-width:0;align-self:end;background:var(--burgundy-deep);padding:0;overflow:hidden}
+.contact__art img{width:100%;aspect-ratio:2/3;height:auto;object-fit:cover;object-position:50% 50%}
 .clink{display:flex;justify-content:space-between;gap:16px;align-items:baseline;padding:17px 0;border-top:1px solid var(--line-dark);min-width:0}
 .clink:last-child{border-bottom:1px solid var(--line-dark)}
 .clink .k{font-family:var(--f-mono);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--grey-500);flex:none}
@@ -481,7 +482,7 @@ noscript .rv{opacity:1;transform:none}
 
   .about{grid-template-columns:1fr}
   .about__art,.about__copy{grid-column:1/13}
-  .about__art{padding:16px}
+  .about__art{padding:0}
   .about__copy{margin-top:28px}
   .facts{grid-template-columns:1fr;margin-top:28px}
   .facts > div{padding:15px 18px}
@@ -502,7 +503,7 @@ noscript .rv{opacity:1;transform:none}
 
   .contact{padding:clamp(56px,9vw,84px) 0}
   .contact__links{grid-column:1/13;margin-top:28px}
-  .contact__art{grid-column:1/13;grid-row:auto;max-width:270px;padding:14px;margin-top:30px;justify-self:end}
+  .contact__art{grid-column:1/13;grid-row:auto;max-width:270px;padding:0;margin-top:30px;justify-self:end}
   .clink{padding:14px 0;gap:12px}
   .clink .v{font-size:14px}
 
