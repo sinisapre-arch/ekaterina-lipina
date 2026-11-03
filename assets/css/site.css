@@ -161,6 +161,14 @@ ul.bullets li b{color:var(--white);font-weight:500}
 .mnav__lang button.on{color:var(--accent-text)}
 .mnav__lang button:hover{color:var(--white)}
 .mnav__lang .sep{color:var(--grey-700)}
+.mnav__meta{
+  margin-top:auto;padding-top:22px;border-top:1px solid var(--line-dark);
+  display:flex;flex-wrap:wrap;gap:10px 20px;
+  font-family:var(--f-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--grey-300);
+}
+.mnav__meta a{transition:color .3s}
+.mnav__meta a:hover{color:var(--accent-text)}
+.mnav__meta span{color:var(--grey-500)}
 
 .progress{position:fixed;top:0;left:0;height:2px;background:var(--burgundy-bright);z-index:80;width:0}
 
