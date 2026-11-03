@@ -8,6 +8,8 @@
 /assets/img/New Images
 # og.html is the source of the social share card, rendered locally.
 /og.html
+# Internal design-direction styleguide — not part of the public site.
+/design.html
 # Cloudflare worker source - deployed to Cloudflare, not to Vercel.
 /worker
 # assets/img/og-cover.png is the social share card and MUST be published.

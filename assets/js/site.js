@@ -67,6 +67,20 @@ var saved = null;
 try{ saved = localStorage.getItem('el-lang'); }catch(e){}
 setLang(saved || 'ru');
 
+/* ---------- overlay scroll lock ---------- */
+function hasOpenOverlay(){
+  return !!document.querySelector('.modal.open, .lightbox.open, .mnav:not([hidden])');
+}
+function lockScroll(){
+  document.documentElement.classList.add('is-locked');
+  document.body.classList.add('is-locked');
+}
+function unlockScroll(){
+  if(hasOpenOverlay()) return;
+  document.documentElement.classList.remove('is-locked');
+  document.body.classList.remove('is-locked');
+}
+
 /* ---------- showreel facade ---------- */
 var reelbox = document.getElementById('reelbox');
 var reelFrame = document.querySelector('[data-reel-frame]');
@@ -81,13 +95,13 @@ function openReel(){
     '<iframe src="https://www.youtube-nocookie.com/embed/' + SITE.reelVideoId +
     '?autoplay=1&rel=0&modestbranding=1&playsinline=1" title="Showreel" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
   reelbox.classList.add('open');
-  document.body.style.overflow = 'hidden';
+  lockScroll();
 }
 function closeReel(){
   if(!reelbox || !reelFrame) return;
   reelbox.classList.remove('open');
   reelFrame.innerHTML = '';
-  document.body.style.overflow = '';
+  unlockScroll();
 }
 document.querySelectorAll('[data-open-reel]').forEach(function(b){ b.addEventListener('click', openReel); });
 var reelClose = document.querySelector('[data-close-reel]');
@@ -105,13 +119,13 @@ function openBooking(){
   if(!booking) return;
   lastFocus = document.activeElement;
   booking.classList.add('open');
-  document.body.style.overflow = 'hidden';
+  lockScroll();
   setTimeout(function(){ document.getElementById('bk-name').focus(); }, 60);
 }
 function closeBooking(){
   if(!booking) return;
   booking.classList.remove('open');
-  document.body.style.overflow = '';
+  unlockScroll();
   bkStatus.textContent = '';
   bkStatus.className = 'modal__status';
   if(lastFocus && lastFocus.focus) lastFocus.focus();
@@ -120,6 +134,10 @@ document.querySelectorAll('[data-open-booking]').forEach(function(b){ b.addEvent
 var bkClose = document.querySelector('[data-close-booking]');
 if(bkClose) bkClose.addEventListener('click', closeBooking);
 if(booking) booking.addEventListener('click', function(e){ if(e.target === booking) closeBooking(); });
+['bk-name','bk-phone','bk-email'].forEach(function(id){
+  var field = document.getElementById(id);
+  if(field) field.addEventListener('input', function(){ field.classList.remove('err'); });
+});
 
 if(bkForm) bkForm.addEventListener('submit', function(e){
   e.preventDefault();
@@ -128,16 +146,20 @@ if(bkForm) bkForm.addEventListener('submit', function(e){
   var email = document.getElementById('bk-email');
   var company = document.getElementById('bk-company');
   var callback = document.getElementById('bk-callback');
-  var ok = true;
 
-  [name, phone].forEach(function(f){ f.classList.remove('err'); });
-  if(!name.value.trim()){ name.classList.add('err'); ok = false; }
-  if(!phone.value.trim()){ phone.classList.add('err'); ok = false; }
-  if(!ok){
+  [name, phone, email].forEach(function(f){ f.classList.remove('err'); });
+  var digits = phone.value.replace(/\D/g, '');
+  var emailVal = email.value.trim();
+  var emailOk = !emailVal || /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(emailVal);
+  var problems = [];
+  if(!name.value.trim()){ name.classList.add('err'); problems.push(document.documentElement.lang === 'ru' ? 'имя' : 'name'); }
+  if(digits.length < 10 || digits.length > 15){ phone.classList.add('err'); problems.push(document.documentElement.lang === 'ru' ? 'телефон' : 'phone'); }
+  if(!emailOk){ email.classList.add('err'); problems.push('email'); }
+  if(problems.length){
     bkStatus.className = 'modal__status err';
     bkStatus.textContent = document.documentElement.lang === 'ru'
-      ? 'Заполните имя и номер телефона.'
-      : 'Please fill in your name and phone number.';
+      ? 'Проверьте, пожалуйста: ' + problems.join(', ') + '.'
+      : 'Please check: ' + problems.join(', ') + '.';
     return;
   }
   if(company.value){ return; }  // honeypot — pretend it went through
@@ -215,12 +237,12 @@ function setMenu(open){
     mnav.removeAttribute('hidden');
     burger.classList.add('on');
     burger.setAttribute('aria-expanded','true');
-    document.body.style.overflow = 'hidden';
+    lockScroll();
   }else{
     mnav.setAttribute('hidden','');
     burger.classList.remove('on');
     burger.setAttribute('aria-expanded','false');
-    document.body.style.overflow = '';
+    unlockScroll();
   }
 }
 if(burger && mnav){
@@ -228,6 +250,9 @@ if(burger && mnav){
   mnav.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ setMenu(false); }); });
   mnav.querySelectorAll('[data-open-booking]').forEach(function(b){
     b.addEventListener('click', function(){ setMenu(false); });
+  });
+  window.addEventListener('resize', function(){
+    if(window.innerWidth > 1199 && !mnav.hasAttribute('hidden')) setMenu(false);
   });
 }
 
@@ -238,9 +263,27 @@ document.querySelectorAll('[data-car]').forEach(function(b){
   b.addEventListener('click', function(){
     var dir = parseInt(b.getAttribute('data-car'), 10);
     var item = car.querySelector('.carousel__item');
-    var step = item ? item.offsetWidth + 18 : 320;
+    var gap = parseFloat(getComputedStyle(car).columnGap || getComputedStyle(car).gap) || 18;
+    var step = item ? item.offsetWidth + gap : 320;
     car.scrollBy({left: dir * step, behavior:'smooth'});
   });
+});
+
+/* ---------- keyboard: focus trap for the booking dialog ---------- */
+function focusables(root){
+  return Array.prototype.filter.call(
+    root.querySelectorAll('a[href],button:not([disabled]),input:not([disabled]),select,textarea,[tabindex]:not([tabindex="-1"])'),
+    function(el){ return el.offsetWidth > 0 || el.offsetHeight > 0 || el === document.activeElement; }
+  );
+}
+document.addEventListener('keydown', function(e){
+  if(e.key !== 'Tab' || !booking || !booking.classList.contains('open')) return;
+  var panel = booking.querySelector('.modal__panel');
+  var list = focusables(panel);
+  if(!list.length) return;
+  var first = list[0], last = list[list.length - 1];
+  if(e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+  else if(!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
 });
 
 /* ---------- esc closes overlays ---------- */
@@ -252,8 +295,23 @@ document.addEventListener('keydown', function(e){
 });
 
 /* ---------- print / save as PDF (portfolio page) ---------- */
+function preparePrint(){
+  var pending = Array.prototype.filter.call(document.images, function(img){ return !img.complete; });
+  pending.forEach(function(img){ img.loading = 'eager'; });
+  if(!pending.length){ window.print(); return; }
+  var fired = false;
+  function go(){ if(fired) return; fired = true; window.print(); }
+  var left = pending.length;
+  function tick(){ if(--left <= 0) go(); }
+  pending.forEach(function(img){
+    if(img.complete){ tick(); return; }
+    img.addEventListener('load', tick, {once:true});
+    img.addEventListener('error', tick, {once:true});
+  });
+  setTimeout(go, 1500);
+}
 document.querySelectorAll('[data-print]').forEach(function(b){
-  b.addEventListener('click', function(){ window.print(); });
+  b.addEventListener('click', preparePrint);
 });
 
 /* ---------- reduced motion ---------- */
