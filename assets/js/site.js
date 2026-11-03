@@ -251,6 +251,13 @@ if(burger && mnav){
   mnav.querySelectorAll('[data-open-booking]').forEach(function(b){
     b.addEventListener('click', function(){ setMenu(false); });
   });
+  var brandLink = document.querySelector('.topbar .brand');
+  if(brandLink) brandLink.addEventListener('click', function(){
+    if(!mnav.hasAttribute('hidden')) setMenu(false);
+  });
+  document.querySelectorAll('.topbar [data-open-booking]').forEach(function(b){
+    b.addEventListener('click', function(){ if(!mnav.hasAttribute('hidden')) setMenu(false); });
+  });
   window.addEventListener('resize', function(){
     if(window.innerWidth > 1199 && !mnav.hasAttribute('hidden')) setMenu(false);
   });
