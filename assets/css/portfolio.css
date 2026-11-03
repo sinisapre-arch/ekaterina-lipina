@@ -25,7 +25,7 @@
 .pf__media{grid-column:9/13;min-width:0;background:var(--burgundy-deep);padding:0;overflow:hidden}
 .pf__media img{width:100%;aspect-ratio:3/4;height:auto;object-fit:cover;object-position:50% 40%}
 
-.pf__title{font-size:clamp(2.5rem,5.4vw,4.6rem);line-height:.95;margin-bottom:22px}
+.pf__title{font-size:clamp(3.2rem,6.6vw,6rem);line-height:.95;margin-bottom:22px;letter-spacing:.02em}
 .pf__title .ac{color:var(--accent-text);font-style:italic}
 .pf__role{font-family:var(--f-mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--grey-300);display:flex;flex-wrap:wrap;gap:10px 20px}
 .pf__role span{display:inline-flex;align-items:center;gap:10px}
@@ -123,7 +123,7 @@
 @media (max-width:760px){
   .pf__hero{padding:calc(var(--topbar) + 30px) 0 40px}
   .pf__hero__grid{gap:28px}
-  .pf__title{font-size:clamp(2.3rem,10.4vw,3.4rem);margin-bottom:18px}
+  .pf__title{font-size:clamp(2.9rem,10.4vw,4rem);margin-bottom:18px}
   .pf__role{font-size:10px;gap:8px 14px}
   .pf__lede{margin-top:20px}
   .pf__actions{margin-top:26px}

@@ -46,8 +46,8 @@ document.querySelectorAll('.sec__head, .format, .about__art, .about__copy, .fact
 
 /* ---------- EN / RU toggle ---------- */
 var TITLES = {
-  ru: document.documentElement.getAttribute('data-title-ru') || 'Екатерина Сосноватая — Ведущая шоу и мероприятий',
-  en: document.documentElement.getAttribute('data-title-en') || 'Ekaterina Sosnovaya — Show Host & Presenter'
+  ru: document.documentElement.getAttribute('data-title-ru') || 'ЕСЯ — Ведущая шоу и мероприятий',
+  en: document.documentElement.getAttribute('data-title-en') || 'ESYA — Show Host & Presenter'
 };
 function setLang(lang){
   document.documentElement.lang = lang;

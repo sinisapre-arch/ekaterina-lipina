@@ -81,6 +81,7 @@ html.is-locked,body.is-locked{overflow:hidden}
 
 h1,h2,h3,h4{font-family:var(--f-display);font-weight:400;line-height:.95;letter-spacing:-.015em;overflow-wrap:break-word}
 .h-1{font-size:clamp(2.5rem,5.2vw,4.7rem);line-height:.94}
+.h-1.about__name{font-size:clamp(3.4rem,7vw,6.4rem);line-height:.92;letter-spacing:.02em}
 .h-2{font-size:clamp(1.85rem,3.4vw,3rem);line-height:1}
 .h-3{font-size:clamp(1.3rem,1.9vw,1.85rem);line-height:1.12}
 .italic{font-style:italic}
@@ -126,7 +127,7 @@ ul.bullets li b{color:var(--white);font-weight:500}
   background:rgba(10,10,12,.82);backdrop-filter:blur(14px);
   border-bottom:1px solid var(--line-dark);
 }
-.topbar .brand{font-family:var(--f-display);font-size:15.5px;letter-spacing:.03em;white-space:nowrap;flex:0 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis}
+.topbar .brand{font-family:var(--f-masthead);font-size:20px;letter-spacing:.18em;text-transform:uppercase;white-space:nowrap;flex:0 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis}
 .topbar nav{display:flex;gap:clamp(14px,2.2vw,34px);margin-left:auto;min-width:0;overflow:hidden}
 .topbar nav a{
   font-family:var(--f-mono);font-size:10px;letter-spacing:.17em;text-transform:uppercase;
@@ -514,7 +515,7 @@ noscript .rv{opacity:1;transform:none}
 
 @media (max-width:560px){
   .topbar .cta{display:none}
-  .topbar .brand{font-size:15px}
+  .topbar .brand{font-size:18px}
   .hero__title{font-size:clamp(2.45rem,11.8vw,3.1rem)}
   .hero__lede{font-size:15px}
   .hero__cta{gap:9px}
@@ -525,7 +526,7 @@ noscript .rv{opacity:1;transform:none}
 @media (max-width:380px){
   :root{--pad:16px}
   .topbar{gap:8px}
-  .topbar .brand{font-size:13.5px}
+  .topbar .brand{font-size:17px}
   .topbar .right{gap:8px}
   .burger{margin-right:-9px}
   .hero__title{font-size:clamp(2.15rem,11.4vw,2.7rem)}
