@@ -2,9 +2,10 @@
    CONFIG
    ============================================================ */
 var SITE = {
-  // Set the showreel video id to embed it in-page (YouTube).
-  // Leave empty and the facade links out to the channel instead.
-  reelVideoId: 'E5tqiFIlmmo',
+  // Hero "Watch the intro video" — the presenter's video business card.
+  introVideoId: 'DzL0WoXFhf8',
+  // Showreel section — the current showreel.
+  reelVideoId: '8t7XGiVOHKY',
   reelChannel: 'https://youtube.com/@esyasosnovaya',
   // Primary endpoint: Cloudflare worker holding the bot token server-side.
   // Same contract as the PlanoLand2 site.
@@ -85,24 +86,29 @@ function unlockScroll(){
 var reelbox = document.getElementById('reelbox');
 var reelFrame = document.querySelector('[data-reel-frame]');
 
-function openReel(){
+function openVideo(id, label){
   if(!reelbox || !reelFrame) return;
-  if(!SITE.reelVideoId){
+  var videoId = id || SITE.reelVideoId;
+  if(!videoId){
     window.open(SITE.reelChannel, '_blank', 'noopener');
     return;
   }
   reelFrame.innerHTML =
-    '<iframe src="https://www.youtube-nocookie.com/embed/' + SITE.reelVideoId +
-    '?autoplay=1&rel=0&modestbranding=1&playsinline=1" title="Showreel" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+    '<iframe src="https://www.youtube-nocookie.com/embed/' + videoId +
+    '?autoplay=1&rel=0&modestbranding=1&playsinline=1" title="' + label +
+    '" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
   reelbox.classList.add('open');
   lockScroll();
 }
+function openIntro(){ openVideo(SITE.introVideoId, 'Видеовизитка / Intro video'); }
+function openReel(){ openVideo(SITE.reelVideoId, 'Шоурил / Showreel'); }
 function closeReel(){
   if(!reelbox || !reelFrame) return;
   reelbox.classList.remove('open');
   reelFrame.innerHTML = '';
   unlockScroll();
 }
+document.querySelectorAll('[data-open-intro]').forEach(function(b){ b.addEventListener('click', openIntro); });
 document.querySelectorAll('[data-open-reel]').forEach(function(b){ b.addEventListener('click', openReel); });
 var reelClose = document.querySelector('[data-close-reel]');
 if(reelClose) reelClose.addEventListener('click', closeReel);

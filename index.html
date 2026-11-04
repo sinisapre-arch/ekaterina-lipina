@@ -25,6 +25,7 @@
 <meta name="twitter:description" content="Я не просто веду — я создаю шоу. Корпоративные мероприятия, брендовые события, шоу и интертейнмент, премии.">
 <meta name="twitter:image" content="https://ekaterina-lipina.vercel.app/assets/img/og-cover-esya.png">
 <link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="assets/css/redesign.css">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -52,9 +53,9 @@
 <header class="topbar">
   <a class="brand" href="#top" data-en="ESYA" data-ru="ЕСЯ">ЕСЯ</a>
   <nav>
-    <a href="#reel" data-en="Showreel" data-ru="Шоу-рил">Шоу-рил</a>
-    <a href="#formats" data-en="Formats" data-ru="Форматы">Форматы</a>
     <a href="#about" data-en="About" data-ru="О ведущей">О ведущей</a>
+    <a href="#formats" data-en="Formats" data-ru="Форматы">Форматы</a>
+    <a href="#reel" data-en="Showreel" data-ru="Шоурил">Шоурил</a>
     <a href="#work" data-en="Work" data-ru="Сотрудничество">Сотрудничество</a>
     <a href="#gallery" data-en="Gallery" data-ru="Галерея">Галерея</a>
     <a href="/portfolio" data-en="Portfolio" data-ru="Портфолио">Портфолио</a>
@@ -73,9 +74,9 @@
 
 <div class="mnav" id="mnav" hidden>
   <nav>
-    <a href="#reel" data-en="Showreel" data-ru="Шоу-рил">Шоу-рил</a>
-    <a href="#formats" data-en="Formats" data-ru="Форматы">Форматы</a>
     <a href="#about" data-en="About" data-ru="О ведущей">О ведущей</a>
+    <a href="#formats" data-en="Formats" data-ru="Форматы">Форматы</a>
+    <a href="#reel" data-en="Showreel" data-ru="Шоурил">Шоурил</a>
     <a href="#work" data-en="Work" data-ru="Сотрудничество">Сотрудничество</a>
     <a href="#gallery" data-en="Gallery" data-ru="Галерея">Галерея</a>
     <a href="/portfolio" data-en="Portfolio" data-ru="Портфолио">Портфолио</a>
@@ -96,93 +97,75 @@
 <main id="main" tabindex="-1">
 
 <!-- ══════════════════════ HERO ══════════════════════ -->
-<section class="hero" id="top">
-  <div class="hero__media grain">
-    <picture>
-      <source media="(max-width:760px)" srcset="assets/img/hero-stage-800.webp">
-      <source media="(max-width:1400px)" srcset="assets/img/hero-stage-1200.webp">
-      <img src="assets/img/hero-stage-1600.webp" alt="ЕСЯ на сцене" width="1600" height="2844" fetchpriority="high">
-    </picture>
+<section class="hero hero--split" id="top">
+  <div class="hero__photo">
+    <img src="assets/img/seated-light-800.webp"
+         srcset="assets/img/seated-light-800.webp 800w, assets/img/seated-light-1200.webp 1200w"
+         sizes="(max-width:900px) 100vw, 50vw"
+         alt="ЕСЯ" width="800" height="1200" fetchpriority="high">
   </div>
 
-  <div class="hero__in">
-    <div class="hero__copy">
-      <div class="hero__eyebrow">
-        <span class="dot"></span>
-        <span class="label" data-en="Show host" data-ru="Ведущая шоу">Ведущая шоу</span>
-        <span class="label label--accent" data-en="Moscow &amp; on tour" data-ru="Москва и выезд">Москва и выезд</span>
-      </div>
+  <div class="hero__copy">
+    <div class="hero__brand" data-en="ESYA." data-ru="ЕСЯ.">ЕСЯ.</div>
 
-      <h1 class="hero__title">
-        <span class="ln" data-en="I don&rsquo;t just host." data-ru="Я не просто веду.">Я не просто веду.</span>
-        <span class="ln ac" data-en="I create shows." data-ru="Я создаю шоу.">Я создаю шоу.</span>
-      </h1>
-
-      <p class="body-p hero__lede" data-en="A vivid personality, sharp humour and the kind of energy that brings people together and turns any event into a show." data-ru="Яркая индивидуальность, острый юмор и энергия, которая объединяет людей и превращает любое событие в шоу.">Яркая индивидуальность, острый юмор и энергия, которая объединяет людей и превращает любое событие в шоу.</p>
-
-      <ul class="bullets hero__bullets">
-        <li data-en="Corporate events" data-ru="Корпоративные мероприятия">Корпоративные мероприятия</li>
-        <li data-en="Brand events" data-ru="Брендовые мероприятия">Брендовые мероприятия</li>
-        <li data-en="Shows &amp; entertainment" data-ru="Шоу и интертейнмент">Шоу и интертейнмент</li>
-        <li data-en="Awards &amp; music events" data-ru="Премии и музыкальные события">Премии и музыкальные события</li>
-      </ul>
-
-      <div class="hero__lang" data-en="I work in Russian and English" data-ru="Работаю на русском и английском языках">Работаю на русском и английском языках</div>
-
-      <div class="hero__cta">
-        <button class="btn btn--primary" data-open-reel>
-          <span data-en="Watch the showreel" data-ru="Смотреть видеовизитку">Смотреть видеовизитку</span><span class="arw">→</span>
-        </button>
-        <button class="btn" data-open-booking data-en="Invite Esya" data-ru="Пригласить Есю">Пригласить Есю</button>
-      </div>
+    <div class="hero__eyebrow">
+      <span class="dot"></span>
+      <span class="label" data-en="Show host" data-ru="Ведущая шоу / TV show host">Ведущая шоу / TV show host</span>
     </div>
-  </div>
 
-  <div class="hero__folio">
-    <span class="label" data-en="ESYA" data-ru="ЕСЯ">ЕСЯ</span>
-    <span class="label label--accent" data-en="Show host &amp; artist" data-ru="Ведущая шоу и артистка">Ведущая шоу и артистка</span>
+    <h1 class="hero__title">
+      <span class="ln" data-en="I don&rsquo;t just host," data-ru="Не просто веду,">Не просто веду,</span>
+      <span class="ln ac" data-en="I create shows." data-ru="создаю шоу.">создаю шоу.</span>
+    </h1>
+
+    <p class="body-p hero__lede" data-en="A vivid personality, sharp humour and the energy that brings people together and turns any event into a show." data-ru="Яркая индивидуальность, острый юмор и энергия, которая объединяет людей и превращает любое событие в шоу.">Яркая индивидуальность, острый юмор и энергия, которая объединяет людей и превращает любое событие в шоу.</p>
+
+    <ul class="bullets hero__bullets">
+      <li data-en="Corporate events" data-ru="Корпоративные мероприятия">Корпоративные мероприятия</li>
+      <li data-en="Brand events" data-ru="Брендовые мероприятия">Брендовые мероприятия</li>
+      <li data-en="Shows &amp; entertainment" data-ru="Шоу и интертейнмент">Шоу и интертейнмент</li>
+      <li data-en="Awards &amp; music events" data-ru="Премии и музыкальные события">Премии и музыкальные события</li>
+    </ul>
+
+    <div class="hero__lang" data-en="I work in Russian and English" data-ru="Работаю на русском и английском языках">Работаю на русском и английском языках</div>
+
+    <div class="hero__cta">
+      <button class="btn btn--primary" data-open-intro>
+        <span data-en="Watch the intro video" data-ru="Смотреть видеовизитку">Смотреть видеовизитку</span><span class="arw">→</span>
+      </button>
+      <button class="btn btn--booking" data-open-booking data-en="Invite Esya" data-ru="Пригласить Есю">Пригласить Есю</button>
+    </div>
   </div>
 </section>
 
-<!-- ══════════════════════ SHOWREEL ══════════════════════ -->
-<section class="reel" id="reel">
-  <div class="reel__head">
-    <div class="lead">
-      <div class="sec__num">01 — Showreel</div>
-      <div class="kicker"><span class="label" data-en="Video" data-ru="Видео">Видео</span></div>
-      <h2 class="h-1" data-en="Two minutes <em class='italic' style='color:var(--accent-text)'>on stage</em>" data-ru="Две минуты <em class='italic' style='color:var(--accent-text)'>на сцене</em>">Две минуты <em class="italic" style="color:var(--accent-text)">на сцене</em></h2>
+<!-- ══════════════════════ ABOUT ══════════════════════ -->
+<section class="sec about-sec" id="about">
+  <div class="wrap">
+    <div class="about__photo">
+      <img src="assets/img/stand-light-800.webp"
+           srcset="assets/img/stand-light-800.webp 800w, assets/img/stand-light-1200.webp 1200w"
+           sizes="(max-width:760px) 86vw, 560px"
+           alt="ЕСЯ" width="800" height="1200" loading="lazy">
     </div>
-    <div class="side">
-      <p class="body-p" data-en="Hosting, live performance and event work — collected on one screen." data-ru="Ведение, живые выступления и работа на мероприятиях — на одном экране.">Ведение, живые выступления и работа на мероприятиях — на одном экране.</p>
+
+    <div class="about__copy">
+      <div class="sec__num">01 — About</div>
+      <h2 class="about__title" data-en="Who I am" data-ru="Кто я">Кто я</h2>
+      <p class="lede" data-en="I am Esya — an artist, a media personality and a host. My story in front of the camera began at 13, when I became the presenter of a youth television programme." data-ru="Я — Еся. Артистка, медийная личность и ведущая мероприятий. Моя история работы перед камерой началась в 13 лет, когда я стала ведущей молодежной телевизионной программы.">Я — Еся. Артистка, медийная личность и ведущая мероприятий. Моя история работы перед камерой началась в 13 лет, когда я стала ведущей молодежной телевизионной программы.</p>
+      <p class="body-p" data-en="Since then television, music, acting, digital and the event industry have run through my life in parallel." data-ru="С тех пор в моей жизни переплелись телевидение, музыка, актерское мастерство, digital-индустрия и event.">С тех пор в моей жизни переплелись телевидение, музыка, актерское мастерство, digital-индустрия и event.</p>
+      <p class="body-p" data-en="I love a live audience, intelligent humour and the moments when a planned script becomes a real event. On stage it matters less that I keep to the running order than that I build an atmosphere people genuinely want to be in." data-ru="Я люблю живую аудиторию, интеллектуальный юмор и моменты, когда удается воплотить задуманный сценарий в настоящее событие. На сцене для меня важно не просто провести программу по таймингу, а создать атмосферу, в которой людям действительно интересно.">Я люблю живую аудиторию, интеллектуальный юмор и моменты, когда удается воплотить задуманный сценарий в настоящее событие.</p>
     </div>
-  </div>
-
-  <button class="reel__frame" data-open-reel aria-label="Смотреть видеовизитку / Watch the showreel">
-    <picture>
-      <source media="(max-width:900px)" srcset="assets/img/reel-poster-1000.webp">
-      <img src="assets/img/reel-poster-1600.webp" alt="Кадр из видеовизитки" width="1600" height="900" loading="lazy">
-    </picture>
-    <span class="reel__play"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M18 6v88l72-44z"/></svg></span>
-    <span class="reel__cap">
-      <span class="t" data-en="Official clip — «Палево»" data-ru="Официальный клип «Палево»">Официальный клип «Палево»</span>
-      <span class="reel__note" data-en="Open on YouTube" data-ru="Открыть на YouTube">Открыть на YouTube</span>
-    </span>
-  </button>
-
-  <div class="reel__fallback">
-    <a href="https://youtube.com/@esyasosnovaya" target="_blank" rel="noopener" data-en="Open the YouTube channel" data-ru="Открыть канал на YouTube">Открыть канал на YouTube ↗</a>
-    <a href="https://t.me/Esya_Sosnovaya" target="_blank" rel="noopener" data-en="Telegram" data-ru="Telegram">Telegram ↗</a>
   </div>
 </section>
 
 <!-- ══════════════════════ FORMATS ══════════════════════ -->
-<section class="sec sec--paper" id="formats">
+<section class="sec" id="formats">
   <div class="wrap">
     <div class="sec__head">
       <div class="lead">
         <div class="sec__num">02 — Formats</div>
         <div class="kicker"><span class="label" data-en="What I host" data-ru="Что я веду">Что я веду</span></div>
-        <h2 class="h-1" data-en="Five formats, <em class='italic'>one</em> approach" data-ru="Пять форматов, <em class='italic'>один</em> подход">Пять форматов, <em class="italic">один</em> подход</h2>
+        <h2 class="h-1" data-en="Five formats, <span class='ac'>one</span> approach" data-ru="Пять форматов, <span class='ac'>один</span> подход">Пять форматов, <span class="ac">один</span> подход</h2>
       </div>
       <div class="side">
         <p class="body-p" data-en="I love a live audience, intelligent humour and the moments when a planned script becomes a real event. On stage it matters less that I keep to the running order than that I build an atmosphere people genuinely want to be in." data-ru="Я люблю живую аудиторию, интеллектуальный юмор и моменты, когда задуманный сценарий становится настоящим событием. На сцене для меня важно не просто провести программу по таймингу, а создать атмосферу, в которой людям действительно интересно.">Я люблю живую аудиторию, интеллектуальный юмор и моменты, когда задуманный сценарий становится настоящим событием.</p>
@@ -230,55 +213,75 @@
   </div>
 </section>
 
-<!-- ══════════════════════ ABOUT ══════════════════════ -->
-<section class="sec" id="about">
+<!-- ══════════════════════ SHOWREEL ══════════════════════ -->
+<section class="reel" id="reel">
+  <div class="reel__head">
+    <div class="lead">
+      <div class="sec__num">03 — Showreel</div>
+      <div class="kicker"><span class="label" data-en="Video" data-ru="Видео">Видео</span></div>
+      <h2 class="h-1" data-en="Showreel" data-ru="Шоурил">Шоурил</h2>
+    </div>
+    <div class="side">
+      <p class="body-p" data-en="Hosting, live performance and event work — collected on one screen." data-ru="Ведение, живые выступления и работа на мероприятиях — на одном экране.">Ведение, живые выступления и работа на мероприятиях — на одном экране.</p>
+    </div>
+  </div>
+
+  <button class="reel__frame" data-open-reel aria-label="Смотреть шоурил / Watch the showreel">
+    <img src="assets/img/stage-band-1280.webp" alt="ЕСЯ на сцене с живым составом" width="1280" height="853" loading="lazy">
+    <span class="reel__play"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M18 6v88l72-44z"/></svg></span>
+    <span class="reel__cap">
+      <span class="t" data-en="Showreel — Esya" data-ru="Шоурил — Еся">Шоурил — Еся</span>
+      <span class="reel__note" data-en="Click to load from YouTube" data-ru="Нажмите — загрузка с YouTube">Нажмите — загрузка с YouTube</span>
+    </span>
+  </button>
+
+  <div class="reel__cta">
+    <button class="btn btn--primary" data-open-reel>
+      <span data-en="Watch the showreel" data-ru="Смотреть шоурил">Смотреть шоурил</span><span class="arw">→</span>
+    </button>
+  </div>
+
+  <div class="reel__fallback">
+    <a href="https://youtube.com/@esyasosnovaya" target="_blank" rel="noopener" data-en="Open the YouTube channel" data-ru="Открыть канал на YouTube">Открыть канал на YouTube ↗</a>
+    <a href="https://t.me/Esya_Sosnovaya" target="_blank" rel="noopener" data-en="Telegram" data-ru="Telegram">Telegram ↗</a>
+  </div>
+</section>
+
+<!-- ══════════════════════ FACTS ══════════════════════ -->
+<section class="sec facts-sec" id="facts">
   <div class="wrap">
     <div class="sec__head">
       <div class="lead">
-        <div class="sec__num">03 — About</div>
-        <div class="kicker"><span class="label" data-en="Who I am" data-ru="Кто я">Кто я</span></div>
-        <h2 class="h-1 about__name" data-en="<em class='italic' style='color:var(--accent-text)'>ESYA</em>" data-ru="<em class='italic' style='color:var(--accent-text)'>ЕСЯ</em>"><em class="italic" style="color:var(--accent-text)">ЕСЯ</em></h2>
+        <div class="sec__num">04 — Facts</div>
+        <div class="kicker"><span class="label" data-en="Short version" data-ru="Коротко о главном">Коротко о главном</span></div>
+        <h2 class="h-1" data-en="Facts about <span class='ac'>Esya</span>" data-ru="Факты о <span class='ac'>Еся</span>">Факты о <span class="ac">Еся</span></h2>
       </div>
     </div>
 
-    <div class="about">
-      <div class="about__art grain">
-        <img src="assets/img/seated-burgundy-800.webp"
-             srcset="assets/img/seated-burgundy-800.webp 800w, assets/img/seated-burgundy-1200.webp 1200w"
-             sizes="(max-width:760px) 90vw, 40vw"
-             alt="ЕСЯ" width="800" height="1190" loading="lazy">
+    <div class="facts facts--wide">
+      <div>
+        <div class="k" data-en="Artist" data-ru="Артистка">Артистка</div>
+        <div class="v" data-en="Gamma Music" data-ru="Gamma Music">Gamma Music</div>
       </div>
-      <div class="about__copy">
-        <p class="lede" data-en="I am Esya — an artist, a media personality and a host. My story in front of the camera began at 13, when I became the presenter of a youth television programme." data-ru="Я — Еся. Артистка, медийная личность и ведущая мероприятий. Моя история работы перед камерой началась в 13 лет, когда я стала ведущей молодежной телевизионной программы.">Я — Еся. Артистка, медийная личность и ведущая мероприятий. Моя история работы перед камерой началась в 13 лет, когда я стала ведущей молодежной телевизионной программы.</p>
-        <p class="body-p" data-en="Since then television, music, acting, digital and the event industry have run through my life in parallel." data-ru="С тех пор в моей жизни переплелись телевидение, музыка, актерское мастерство, digital-индустрия и event.">С тех пор в моей жизни переплелись телевидение, музыка, актерское мастерство, digital-индустрия и event.</p>
-        <p class="body-p" data-en="I love a live audience, intelligent humour and the moments when a planned script becomes a real event. On stage it matters less that I keep to the running order than that I build an atmosphere people genuinely want to be in." data-ru="Я люблю живую аудиторию, интеллектуальный юмор и моменты, когда удается воплотить задуманный сценарий в настоящее событие. На сцене для меня важно не просто провести программу по таймингу, а создать атмосферу, в которой людям действительно интересно.">Я люблю живую аудиторию, интеллектуальный юмор и моменты, когда удается воплотить задуманный сценарий в настоящее событие.</p>
-
-        <div class="facts">
-          <div>
-            <div class="k" data-en="Artist" data-ru="Артистка">Артистка</div>
-            <div class="v" data-en="Gamma Music" data-ru="Gamma Music">Gamma Music</div>
-          </div>
-          <div>
-            <div class="k" data-en="Education" data-ru="Образование">Образование</div>
-            <div class="v"><span data-en="Higher, TV &amp; radio" data-ru="Высшее, ТВ и радио">Высшее, ТВ и радио</span><small data-en="Journalism, MGIK" data-ru="Журналистика, МГИК">Журналистика, МГИК</small></div>
-          </div>
-          <div>
-            <div class="k" data-en="Screen work" data-ru="Съёмки">Съёмки</div>
-            <div class="v"><span data-en="Russian &amp; international" data-ru="Российские и международные">Российские и международные</span><small data-en="Including Special OPS 2 for Netflix India" data-ru="В том числе Special OPS 2 для Netflix Индия">В том числе Special OPS 2 для Netflix Индия</small></div>
-          </div>
-          <div>
-            <div class="k" data-en="Streaming" data-ru="Стриминг">Стриминг</div>
-            <div class="v"><span data-en="3M+ plays" data-ru="3 млн+ прослушиваний">3 млн+ прослушиваний</span><small data-en="Own compositions" data-ru="Авторских композиций">Авторских композиций</small></div>
-          </div>
-          <div>
-            <div class="k" data-en="Experience" data-ru="Опыт">Опыт</div>
-            <div class="v"><span data-en="8 years" data-ru="8 лет">8 лет</span><small data-en="In event and digital" data-ru="В event и digital">В event и digital</small></div>
-          </div>
-          <div>
-            <div class="k" data-en="Languages" data-ru="Языки">Языки</div>
-            <div class="v" data-en="Russian · English" data-ru="Русский · Английский">Русский · Английский</div>
-          </div>
-        </div>
+      <div>
+        <div class="k" data-en="Education" data-ru="Образование">Образование</div>
+        <div class="v"><span data-en="Higher, TV &amp; radio" data-ru="Высшее, ТВ и радио">Высшее, ТВ и радио</span><small data-en="Journalism, MGIK" data-ru="Журналистика, МГИК">Журналистика, МГИК</small></div>
+      </div>
+      <div>
+        <div class="k" data-en="Screen work" data-ru="Съёмки">Съёмки</div>
+        <div class="v"><span data-en="Russian &amp; international" data-ru="Российские и международные">Российские и международные</span><small data-en="Including Special OPS 2 for Netflix India" data-ru="В том числе Special OPS 2 для Netflix Индия">В том числе Special OPS 2 для Netflix Индия</small></div>
+      </div>
+      <div>
+        <div class="k" data-en="Streaming" data-ru="Стриминг">Стриминг</div>
+        <div class="v"><span data-en="3M+ plays" data-ru="3 млн+ прослушиваний">3 млн+ прослушиваний</span><small data-en="Own compositions" data-ru="Авторских композиций">Авторских композиций</small></div>
+      </div>
+      <div>
+        <div class="k" data-en="Experience" data-ru="Опыт">Опыт</div>
+        <div class="v"><span data-en="8 years" data-ru="8 лет">8 лет</span><small data-en="In event and digital" data-ru="В event и digital">В event и digital</small></div>
+      </div>
+      <div>
+        <div class="k" data-en="Languages" data-ru="Языки">Языки</div>
+        <div class="v" data-en="Russian · English" data-ru="Русский · Английский">Русский · Английский</div>
       </div>
     </div>
   </div>
@@ -289,9 +292,9 @@
   <div class="wrap">
     <div class="sec__head">
       <div class="lead">
-        <div class="sec__num">04 — Work</div>
+        <div class="sec__num">05 — Work</div>
         <div class="kicker"><span class="label" data-en="Collaboration" data-ru="Сотрудничество">Сотрудничество</span></div>
-        <h2 class="h-1" data-en="Brands, projects <em class='italic' style='color:var(--accent-text)'>and stage</em>" data-ru="Бренды, проекты <em class='italic' style='color:var(--accent-text)'>и сцена</em>">Бренды, проекты <em class="italic" style="color:var(--accent-text)">и сцена</em></h2>
+        <h2 class="h-1" data-en="Brands, projects <span class='ac'>and stage</span>" data-ru="Бренды, проекты <span class='ac'>и сцена</span>">Бренды, проекты <span class="ac">и сцена</span></h2>
       </div>
       <div class="side">
         <p class="body-p" data-en="Brand face, international campaigns and live appearances — on stage, on camera and on record." data-ru="Лицо бренда, международные кампании и живые выступления — на сцене, на камере и на записи.">Лицо бренда, международные кампании и живые выступления — на сцене, на камере и на записи.</p>
@@ -326,8 +329,11 @@
       </div>
 
       <figure class="brands__art">
-        <img src="assets/img/stage-band-1280.webp" alt="ЕСЯ на сцене с живым составом" width="1280" height="853" loading="lazy">
-        <figcaption data-en="Live band — on stage" data-ru="Сцена и живой состав">Сцена и живой состав</figcaption>
+        <img src="assets/img/work-portrait-800.webp"
+             srcset="assets/img/work-portrait-800.webp 800w, assets/img/work-portrait-1200.webp 1200w"
+             sizes="(max-width:760px) 86vw, 480px"
+             alt="ЕСЯ" width="800" height="1200" loading="lazy">
+        <figcaption data-en="Brand portrait" data-ru="Портрет для бренда">Портрет для бренда</figcaption>
       </figure>
     </div>
 
@@ -348,20 +354,20 @@
       <div class="comp"><span class="n">05</span><span class="t" data-en="Improvisation" data-ru="Импровизация">Импровизация</span></div>
     </div>
 
-    <div style="margin-top:clamp(34px,5vh,56px);display:flex;gap:14px;flex-wrap:wrap">
+    <div class="work__cta">
       <a class="btn btn--primary" href="/portfolio" data-en="Portfolio" data-ru="Портфолио">Портфолио<span class="arw">→</span></a>
-      <button class="btn" data-open-booking data-en="Invite Esya" data-ru="Пригласить Есю">Пригласить Есю</button>
+      <button class="btn btn--booking" data-open-booking data-en="Invite Esya" data-ru="Пригласить Есю">Пригласить Есю</button>
     </div>
   </div>
 </section>
 
 <!-- ══════════════════════ GALLERY ══════════════════════ -->
-<section class="sec sec--paper gallery" id="gallery">
+<section class="sec gallery" id="gallery">
   <div class="gallery__head">
     <div class="lead">
-      <div class="sec__num">05 — Gallery</div>
+      <div class="sec__num">06 — Gallery</div>
       <div class="kicker"><span class="label" data-en="On site" data-ru="С площадок">С площадок</span></div>
-      <h2 class="h-1" data-en="Frames <em class='italic'>from the floor</em>" data-ru="Кадры <em class='italic'>с площадок</em>">Кадры <em class="italic">с площадок</em></h2>
+      <h2 class="h-1" data-en="Frames <span class='ac'>from the floor</span>" data-ru="Кадры <span class='ac'>с площадок</span>">Кадры <span class="ac">с площадок</span></h2>
     </div>
     <div class="side">
       <button class="car-nav" data-car="-1" aria-label="Назад / Previous"><svg viewBox="0 0 24 24"><path d="M15.4 7.4 14 6l-6 6 6 6 1.4-1.4-4.6-4.6z"/></svg></button>
@@ -386,13 +392,13 @@
   <div class="wrap">
     <div class="contact__grid">
       <div class="contact__copy">
-        <div class="sec__num">06 — Contact</div>
+        <div class="sec__num">07 — Contact</div>
         <div class="kicker"><span class="label" data-en="Enquiries" data-ru="Запросы">Запросы</span></div>
-        <h2 class="h-1" data-en="Invite <em class='italic' style='color:var(--accent-text)'>Esya</em>" data-ru="Пригласить <em class='italic' style='color:var(--accent-text)'>Есю</em>">Пригласить <em class="italic" style="color:var(--accent-text)">Есю</em></h2>
+        <h2 class="h-1" data-en="Invite <span class='ac'>Esya</span>" data-ru="Пригласить <span class='ac'>Есю</span>">Пригласить <span class="ac">Есю</span></h2>
         <p class="body-p" style="margin-top:22px" data-en="Corporate events, live shows, galas, awards and summits. Formats, technical rider, rates and availability on request." data-ru="Корпоративные мероприятия, живые шоу, гала, премии и саммиты. Форматы, технический райдер, ставки и доступность — по запросу.">Корпоративные мероприятия, живые шоу, гала, премии и саммиты. Форматы, технический райдер, ставки и доступность — по запросу.</p>
         <div class="hero__cta">
           <button class="btn btn--primary" data-open-booking><span data-en="Send an enquiry" data-ru="Отправить запрос">Отправить запрос</span><span class="arw">→</span></button>
-          <button class="btn" data-open-reel data-en="Watch the showreel" data-ru="Смотреть видеовизитку">Смотреть видеовизитку</button>
+          <button class="btn" data-open-intro data-en="Watch the intro video" data-ru="Смотреть видеовизитку">Смотреть видеовизитку</button>
         </div>
       </div>
 
@@ -437,9 +443,9 @@
       </div>
       <div class="foot__col">
         <div class="k" data-en="Sections" data-ru="Разделы">Разделы</div>
-        <a href="#reel" data-en="Showreel" data-ru="Шоу-рил">Шоу-рил</a>
-        <a href="#formats" data-en="Formats" data-ru="Форматы">Форматы</a>
         <a href="#about" data-en="About" data-ru="О ведущей">О ведущей</a>
+        <a href="#formats" data-en="Formats" data-ru="Форматы">Форматы</a>
+        <a href="#reel" data-en="Showreel" data-ru="Шоурил">Шоурил</a>
         <a href="#work" data-en="Work" data-ru="Сотрудничество">Сотрудничество</a>
         <a href="#gallery" data-en="Gallery" data-ru="Галерея">Галерея</a>
       </div>
