@@ -7,11 +7,9 @@ var SITE = {
   // Showreel section — the current showreel.
   reelVideoId: '8t7XGiVOHKY',
   reelChannel: 'https://youtube.com/@esyasosnovaya',
-  // Primary endpoint: Cloudflare worker holding the bot token server-side.
+  // Endpoint: Cloudflare worker holding the bot token server-side.
   // Same contract as the PlanoLand2 site.
-  telegramWorker: 'https://mscw-esya-bot.sinisapre.workers.dev',
-  // Same-origin fallback, identical contract.
-  contactEndpoint: '/api/contact'
+  telegramWorker: 'https://mscw-esya-bot.sinisapre.workers.dev'
 };
 
 /* If a video id is set the facade embeds it in-page; without one it hands the
@@ -199,16 +197,10 @@ if(bkForm) bkForm.addEventListener('submit', function(e){
     });
   }
 
-  // Worker first; if it is unreachable or refuses, fall back to the
-  // same-origin endpoint. Both hold the token server-side.
+  // The worker holds the Telegram bot token server-side. There is no
+  // same-origin fallback on shared hosting, so a failed send points the
+  // visitor at Telegram or WhatsApp instead.
   post(SITE.telegramWorker)
-    .then(function(res){
-      if(res.ok && res.data && res.data.success) return res;
-      return post(SITE.contactEndpoint);
-    })
-    .catch(function(){
-      return post(SITE.contactEndpoint);
-    })
     .then(function(res){
       bkSubmit.disabled = false;
       if(res && res.ok && res.data && res.data.success){
