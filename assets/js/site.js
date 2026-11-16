@@ -3,22 +3,36 @@
    ============================================================ */
 var SITE = {
   // Hero "Watch the intro video" — the presenter's video business card.
-  introVideoId: 'DzL0WoXFhf8',
-  // Showreel section — the current showreel.
-  reelVideoId: '8t7XGiVOHKY',
+  // It lives on RuTube as a private link, so the access token travels with
+  // the embed URL. The bare video id is not enough: without ?p= the player
+  // answers "Автор скрыл это видео".
+  introVideo: {
+    kind: 'iframe',
+    src: 'https://rutube.ru/play/embed/29d1b86ae402b7358183be9f826615d9/?p=mFZAqrQWt8t5IYhvkpU3Iw',
+    title: 'Видеовизитка / Intro video'
+  },
+  // Showreel section — the current showreel, self-hosted. It plays from our
+  // own domain, so no third-party player and no YouTube in the loop.
+  reelVideo: {
+    kind: 'file',
+    src: 'assets/video/showreel.mp4',
+    srcSmall: 'assets/video/showreel-720.mp4',
+    poster: 'assets/img/showreel-poster.jpg',
+    title: 'Шоурил / Showreel'
+  },
   reelChannel: 'https://youtube.com/@esyasosnovaya',
   // Endpoint: Cloudflare worker holding the bot token server-side.
   // Same contract as the PlanoLand2 site.
   telegramWorker: 'https://mscw-esya-bot.sinisapre.workers.dev'
 };
 
-/* If a video id is set the facade embeds it in-page; without one it hands the
+/* If a showreel is set the facade plays it in-page; without one it hands the
    visitor over to the channel, so the label follows the behaviour. */
-if (SITE.reelVideoId) {
+if (SITE.reelVideo) {
   var reelNote = document.querySelector('.reel__note');
   if (reelNote) {
-    reelNote.setAttribute('data-en', 'Click to load from YouTube');
-    reelNote.setAttribute('data-ru', 'Нажмите — загрузка с YouTube');
+    reelNote.setAttribute('data-en', 'Click to play the showreel');
+    reelNote.setAttribute('data-ru', 'Нажмите — включить шоурил');
   }
 }
 
@@ -80,26 +94,34 @@ function unlockScroll(){
   document.body.classList.remove('is-locked');
 }
 
-/* ---------- showreel facade ---------- */
+/* ---------- video lightbox ---------- */
 var reelbox = document.getElementById('reelbox');
 var reelFrame = document.querySelector('[data-reel-frame]');
 
-function openVideo(id, label){
+/* Builds the player for a video descriptor. Self-hosted files get a native
+   <video> element with the browser controls; the RuTube card keeps the
+   official iframe player. */
+function videoMarkup(v){
+  if(v.kind === 'file'){
+    var src = (v.srcSmall && window.matchMedia('(max-width: 900px)').matches) ? v.srcSmall : v.src;
+    return '<video src="' + src + '" poster="' + v.poster + '" controls autoplay playsinline preload="metadata"></video>';
+  }
+  return '<iframe src="' + v.src + '" title="' + v.title + '" ' +
+         'allow="autoplay; fullscreen; picture-in-picture; encrypted-media" allowfullscreen></iframe>';
+}
+
+function openVideo(video, label){
   if(!reelbox || !reelFrame) return;
-  var videoId = id || SITE.reelVideoId;
-  if(!videoId){
+  if(!video){
     window.open(SITE.reelChannel, '_blank', 'noopener');
     return;
   }
-  reelFrame.innerHTML =
-    '<iframe src="https://www.youtube-nocookie.com/embed/' + videoId +
-    '?autoplay=1&rel=0&modestbranding=1&playsinline=1" title="' + label +
-    '" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+  reelFrame.innerHTML = videoMarkup(video);
   reelbox.classList.add('open');
   lockScroll();
 }
-function openIntro(){ openVideo(SITE.introVideoId, 'Видеовизитка / Intro video'); }
-function openReel(){ openVideo(SITE.reelVideoId, 'Шоурил / Showreel'); }
+function openIntro(){ openVideo(SITE.introVideo, 'Видеовизитка / Intro video'); }
+function openReel(){ openVideo(SITE.reelVideo, 'Шоурил / Showreel'); }
 function closeReel(){
   if(!reelbox || !reelFrame) return;
   reelbox.classList.remove('open');

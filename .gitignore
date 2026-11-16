@@ -3,3 +3,6 @@ node_modules/
 .DS_Store
 Thumbs.db
 worker/.wrangler/
+# Master footage (HEVC/MOV) stays local — the web build is committed instead.
+assets/Videos/
+assets/video/*.log
