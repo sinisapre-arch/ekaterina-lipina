@@ -12,7 +12,7 @@ var SITE = {
     title: 'Видеовизитка / Intro video'
   },
   // Showreel section — the current showreel, self-hosted. It plays from our
-  // own domain, so no third-party player and no YouTube in the loop.
+  // own domain, so no third-party player sits in the loop.
   reelVideo: {
     kind: 'file',
     src: 'assets/video/showreel.mp4',
@@ -20,7 +20,8 @@ var SITE = {
     poster: 'assets/img/showreel-poster.jpg',
     title: 'Шоурил / Showreel'
   },
-  reelChannel: 'https://youtube.com/@esyasosnovaya',
+  // Where the visitor goes if a video is ever missing: the Telegram channel.
+  reelChannel: 'https://t.me/Esya_Sosnovaya',
   // Endpoint: Cloudflare worker holding the bot token server-side.
   // Same contract as the PlanoLand2 site.
   telegramWorker: 'https://mscw-esya-bot.sinisapre.workers.dev'
