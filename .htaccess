@@ -16,6 +16,14 @@ Options -Indexes
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
   Header always set X-Frame-Options "SAMEORIGIN"
   Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+
+  # The HTML is the entry point for every asset, so it must never be served
+  # from a stale cache. The static files below carry a content hash in their
+  # URL, so they can be cached hard.
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+
   <FilesMatch "\.(woff2|webp|svg|mp4)$">
     Header set Cache-Control "public, max-age=31536000, immutable"
   </FilesMatch>
